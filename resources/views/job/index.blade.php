@@ -21,7 +21,7 @@
                       </div>
                       <div class="col-md-4 col-xs-12">
                           <div class="form-group">
-                              <form action="/company" method="get" role="search" class="form-inline">
+                              <form action="/job" method="get" role="search" class="form-inline">
                                   <input class="text mr-2 form-control" type="search" placeholder="Search" aria-label="Search" name="search_name" autocomplete="off">
                                   <button class="btn btn-success p-2" type="submit">Search</button>
                                
