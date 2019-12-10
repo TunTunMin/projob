@@ -1,0 +1,40 @@
+/********HEADER**********/
+.navbar-brand {
+    font-size: 1.3em !important;
+    font-weight: bold !important;
+    color: black;
+}
+.nav-pills li a {
+    color: black;
+}
+.header {
+    z-index: cover;
+}
+.left_header {
+    float: left;
+}
+
+/*Header Background*/
+
+.jumbotron {
+    background-size: cover;
+    text-align: center;
+    background-color: #cccccc;
+    height: 500px;
+    background-image: url("../images/header.jpg");
+}
+/* Footer */
+footer ul li a {
+    color: #fff;
+}
+footer ul li:hover a {
+    text-decoration: none;
+}
+.copy-right {
+    background: #414141;
+}
+.copy-right span {
+    display: block;
+    text-align: center;
+    padding: 1em 0;
+}
