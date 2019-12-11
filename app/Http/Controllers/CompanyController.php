@@ -98,7 +98,8 @@ class CompanyController extends Controller
        $company->gallery = json_encode($input['gallery']);
        $company->save();
        
-       return redirect('/company');
+       return redirect('/company')
+       ->with('status','Your data are successfully stored');
 
     }
 
@@ -181,7 +182,7 @@ class CompanyController extends Controller
         //     'gallery' => 'mimes:jpeg,jpg,png,gif,svg|required|max:10000' // max 10000kb
         // ]);
       
-    
+        $input['gallery'] = [];
        if ($files = $request->file('gallery')) {
            $destinationPath = public_path('/projob_images/');
           
@@ -222,7 +223,8 @@ class CompanyController extends Controller
        $company->gallery = json_encode(array_flatten($input['gallery']));
        $company->update();
        
-       return redirect('/company');
+       return redirect('/company')
+       ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -236,7 +238,7 @@ class CompanyController extends Controller
         if(count($company->jobs()->get()) < 1){
             $company->jobs()->delete();
             $company->delete();
-            $status = "Deleted successfully";
+            $status = "Your data are successfully deleted";
            
         }else{
             $status = "Don't delete this item because it has child elements";

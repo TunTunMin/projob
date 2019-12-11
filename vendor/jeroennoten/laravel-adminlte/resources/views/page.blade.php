@@ -63,7 +63,10 @@
                                     <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
                                 </a>
                             @else
-                                <a href="#"
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+                                {{-- <a href="#"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                 >
                                     <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
@@ -73,7 +76,18 @@
                                         {{ method_field(config('adminlte.logout_method')) }}
                                     @endif
                                     {{ csrf_field() }}
-                                </form>
+                                </form> --}}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+            
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
                             @endif
                         </li>
                         @if(config('adminlte.right_sidebar') and (config('adminlte.layout') != 'top-nav'))

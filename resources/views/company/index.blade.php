@@ -1,21 +1,21 @@
 @extends('adminlte::page')
 @section('title', 'Company')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             @if ($message = Session::get('status'))
             <?php 
-            if($message == "Deleted successfully"){
-              $successorfail = "alert-success";
-            }else{
+            if($message == "Your data are successfully deleted" ){
+              $successorfail = "alert-danger";
+            }elseif($message == "Don't delete this item because it has child elements"){
               $successorfail = "alert-warning";
             }
+            else{
+              $successorfail = "alert-success";
+            }
             ?>
-            {{-- <div class="alert {{$successorfail}}" role="alert">
-              <button type="button" class="close" data-dismiss="alert">×</button>	
-                    <span>{{ $message }}</span>
-            </div> --}}
+            
             <div class="alert {{$successorfail}} alert-dismissible fade show" role="alert">
               <strong>{{$message}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

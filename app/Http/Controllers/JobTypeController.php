@@ -43,7 +43,8 @@ class JobTypeController extends Controller
     public function store(Request $request)
     {
         JobType::create($request->except('_token'));
-        return redirect('job_type');
+        return redirect('job_type')
+                ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -80,7 +81,8 @@ class JobTypeController extends Controller
     public function update(Request $request, JobType $jobType)
     {
        $jobType->update($request->except(['_token', '_method']));
-       return redirect('/job_type');
+       return redirect('/job_type')
+       ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -93,7 +95,8 @@ class JobTypeController extends Controller
     {
      
        $jobType->delete();
-       return redirect('/job_type');
+       return redirect('/job_type')
+       ->with('status','Your data are successfully deleted');
     }
 
 

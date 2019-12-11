@@ -43,7 +43,9 @@ class JobSpecificationController extends Controller
     {
         // dd($request->);
         JobSpecification::create($request->except('_token'));
-        return redirect('job_specification');
+        return redirect('job_specification')
+        ->with('status','Your data are successfully stored');
+    
     }
 
     /**
@@ -78,7 +80,9 @@ class JobSpecificationController extends Controller
     public function update(Request $request, JobSpecification $jobSpecification)
     {
         $jobSpecification->update($request->except(['_token', '_method']));
-       return redirect('/job_specification');
+       return redirect('/job_specification')
+       ->with('status','Your data are successfully updated');
+    
     }
 
     /**
@@ -90,6 +94,8 @@ class JobSpecificationController extends Controller
     public function destroy(JobSpecification $jobSpecification)
     {
          $jobSpecification->delete();
-       return redirect('/job_specification');
+       return redirect('/job_specification')
+       ->with('status','Your data are successfully deleted');
+    
     }
 }

@@ -41,10 +41,11 @@ class StreetController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         $data = new Street;
         $data->create($request->except('_token'));
-        return redirect('/street');
+        return redirect('/street')
+            ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -78,7 +79,8 @@ class StreetController extends Controller
     {
         
         Street::find($id)->update(['name' => $request->name]);
-        return redirect('/street');
+        return redirect('/street')
+                ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -87,24 +89,34 @@ class StreetController extends Controller
      * @param  \App\Models\Street  $street
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Street $street)
     {
-        Street::destroy($id);
-        return redirect('/street');    
+      
+        if(count($street->address()->get()) < 1){
+            $street->address()->delete();
+            $street->delete();
+            $status = "Your data are successfully deleted";
+           
+        }else{
+            $status = "Don't delete this item because it has child elements";
+           
+        }
+        return redirect('/street')
+            ->with('status',$status);
     }
 
     public function search(Request $request) 
-        {
-            $searchTerm = $request->input('searchTerm');
-            $posts = Post::all()
-            ->search($searchTerm);
-            return view('posts.index', compact('posts', 'searchTerm'));
-        }
+    {
+        $searchTerm = $request->input('searchTerm');
+        $posts = Post::all()
+        ->search($searchTerm);
+        return view('posts.index', compact('posts', 'searchTerm'));
+    }
 
-       public function show($id)
-       {
-           $post = Post::find($id);
-           return view('posts.show', compact('post'));
-       }
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('posts.show', compact('post'));
+    }
  
 }

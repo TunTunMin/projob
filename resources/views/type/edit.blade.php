@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Type')
+@section('title', 'Client Type')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <form action="/type/{{$Type->id}}" method="post">
@@ -24,7 +24,7 @@
                 <div class="card-footer">
                     <a href="{{ url()->previous() }}" class="btn btn-danger ">Cancel</a>
                     <div class="float-right">
-                        <input type="submit" class="btn btn-success p-r-20">
+                        <input type="submit" class="btn btn-success p-r-20" value="Update">
                     </div>
                 </div>
                    

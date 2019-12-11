@@ -42,7 +42,8 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         Type::create($request->except('_token'));
-        return redirect('type');
+        return redirect('type')
+        ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -77,7 +78,8 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $type->update($request->except(['_token', '_method']));
-       return redirect('/type');
+       return redirect('/type')
+       ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -89,26 +91,10 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         $type->delete();
-       return redirect('/type');
+       return redirect('/type')
+       ->with('status','Your data are successfully deleted');
     }
 
-    /**
-     * Search the specified resource from storage.
-     *
-     * @param  \App\Models\Type  $type
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request, Type $type)
-    {
-       $type->any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = User::where('name','LIKE','%'.$q.'%')->get();
-    if(count($user) > 0)
-        return view('welcome')->withDetails($user)->withQuery ( $name );
-    else return view ('welcome')->withMessage('No Details found. Try to search again !');
-       return redirect('/type');
-
-});
-    }
-
+   
+    
 }

@@ -1,10 +1,26 @@
 @extends('adminlte::page')
-@section('title', 'Type')
+@section('title', 'Client Type')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
+            @if ($message = Session::get('status'))
+            <?php 
+            if($message == "Your data are successfully deleted"){
+              $successorfail = "alert-danger";
+            }else{
+              $successorfail = "alert-success";
+            }
+            ?>
+            
+            <div class="alert {{$successorfail}} alert-dismissible fade show" role="alert">
+              <strong>{{$message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
             <div class="card">
                 <div class="card-header bg-info">
                     <h4 class="my-1 float-left">Client Type</h4>

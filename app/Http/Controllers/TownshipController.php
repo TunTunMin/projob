@@ -43,7 +43,8 @@ class TownshipController extends Controller
     {
         $data = new Township;
         $data->create($request->except('_token'));
-        return redirect('/township');
+        return redirect('/township')
+        ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -79,7 +80,8 @@ class TownshipController extends Controller
     public function update(Request $request, $id)
     {
         Township::find($id)->update(['name' => $request->name]);
-        return redirect('/township');
+        return redirect('/township')
+        ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -88,9 +90,18 @@ class TownshipController extends Controller
      * @param  \App\Models\Township  $township
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Township $township)
     {
-        Township::destroy($id);
-        return redirect('/township');
+        if(count($township->address()->get()) < 1){
+            $township->address()->delete();
+            $township->delete();
+            $status = "Your data are successfully deleted";
+           
+        }else{
+            $status = "Don't delete this item because it has child elements";
+           
+        }
+        return redirect('/township')
+        ->with('status',$status);
     }
 }

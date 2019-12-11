@@ -1,8 +1,25 @@
 @extends('adminlte::page')
-@section('title', 'Type')
+@section('title', 'Township')
 @section('content')
-<div class="container">
+<div class="container-fluid">
+  @if ($message = Session::get('status'))
+  <?php 
+  if($message == "Your data are successfully deleted"){
+    $successorfail = "alert-danger";
+  }elseif($message == "Don't delete this item because it has child elements"){
+    $successorfail = "alert-warning";
+  }else{
+    $successorfail = "alert-success";
+  }
+  ?>
   
+  <div class="alert {{$successorfail}} alert-dismissible fade show" role="alert">
+    <strong>{{$message}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  @endif
   <div class="card">
       <div class="card-header bg-info">
           <h4 class="float-left my-1">Township</h4>

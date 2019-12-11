@@ -43,7 +43,8 @@ class NationalityController extends Controller
     {
         $data = new Nationality;
         $data->create($request->except('_token'));
-        return redirect('/nationality');
+        return redirect('/nationality')
+        ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -79,7 +80,8 @@ class NationalityController extends Controller
     public function update(Request $request, $id)
     {
         Nationality::find($id)->update(['name' => $request->name]);
-        return redirect('/nationality');
+        return redirect('/nationality')
+        ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -91,6 +93,7 @@ class NationalityController extends Controller
     public function destroy($id)
     {
         Nationality::destroy($id);
-        return redirect('/nationality');
+        return redirect('/nationality')
+            ->with('status','Your data are successfully deleted');
     }
 }

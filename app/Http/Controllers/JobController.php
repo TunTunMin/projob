@@ -53,7 +53,8 @@ class JobController extends Controller
         
         $request['post_date'] = date('Y-m-d H:i:s',strtotime($request['post_date']));
         Job::create($request->except(['_token','files']));
-        return redirect('/job');
+        return redirect('/job')
+        ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -97,7 +98,8 @@ class JobController extends Controller
        
         $request['post_date'] = date('Y-m-d H:i:s',strtotime($request['post_date']));
         $job->update($request->except(['_token','_method']));
-        return redirect('/job');
+        return redirect('/job')
+        ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -109,6 +111,7 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $job->delete();
-        return redirect('/job');
+        return redirect('/job')
+        ->with('status','Your data are successfully deleted');
     }
 }

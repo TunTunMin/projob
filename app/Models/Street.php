@@ -3,18 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use DB, Hash;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Street extends Model
 {
+    use SoftDeletes;
     protected $table = 'streets';
     protected $fillable = ['name'];
-}
-class Post extends Model
-{
-    public static function scopeSearch($query, $searchTerm)
+
+    public function address()
     {
-        return $query->where('name', 'like', '%' .$searchTerm. '%');
+        return $this->hasMany('App\Models\Address');
     }
 }
+
 

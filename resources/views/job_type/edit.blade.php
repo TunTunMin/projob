@@ -14,9 +14,10 @@
                 </div>
                
                 <div class="card-body">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Name *:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="name" value="{{$JobType->name}}" autocomplete="off" required>
+                    <div class="form-group">
+                    <label for="inputPassword">Name *:</label>
+                   
+                    <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="name" value="{{$JobType->name}}" autocomplete="off" required>
                     </div>
                 </div>
                 <div class="card-footer">

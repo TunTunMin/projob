@@ -52,7 +52,8 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         Address::create($request->except('_token'));
-         return redirect('/address');
+         return redirect('/address')
+                ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -91,7 +92,8 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         Address::find($id)->update(['township_id' => $request->township_id, 'street_id' => $request->street_id]);
-        return redirect('/address');
+        return redirect('/address')
+            ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -103,6 +105,7 @@ class AddressController extends Controller
     public function destroy($id)
     {
         Address::destroy($id);
-        return redirect('/address');
+        return redirect('/address')
+        ->with('status','Your data are successfully deleted');
     }
 }

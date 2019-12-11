@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Type')
+@section('title', 'Township')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <form method="post" action="/township">
         @csrf
     <div role="form">   

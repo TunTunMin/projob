@@ -45,7 +45,8 @@ class RaceController extends Controller
         // dd($request->all());
         $data = new Race;
         $data->create($request->except('_token'));
-        return redirect('/race');
+        return redirect('/race')
+        ->with('status','Your data are successfully stored');
     }
 
     /**
@@ -81,7 +82,8 @@ class RaceController extends Controller
     public function update(Request $request, $id)
     {
         Race::find($id)->update(['name' => $request->name]);
-        return redirect('/race');
+        return redirect('/race')
+        ->with('status','Your data are successfully updated');
     }
 
     /**
@@ -93,6 +95,7 @@ class RaceController extends Controller
     public function destroy($id)
     {
         Race::destroy($id);
-        return redirect('/race');
+        return redirect('/race')
+                ->with('status','Your data are successfully deleted');
     }
 }
