@@ -7,10 +7,10 @@
             <div class="col-md-6">
                 <div class="card" style="background:rgba(255, 255, 255, .3);">
                     <div class="card-body">
-                        <h5 class="card-title text-primary">58, 567 jobs in Singapore</h5>
+                        <h5 class="card-title text-primary">{{$jobcounts}} jobs in Myanmar</h5>
                         <p class="card-text text-primary">Most Quality Jobs •  Most Quality Employers •  Most Trusted</p>
                         <a href="#" class="card-link btn btn-warning">Free Sign Up</a>
-                        <a href="#"  class="card-link btn btn-info">Search Jobs</a>
+                        <a href="/searchjobs"  class="card-link btn btn-info">Search Jobs</a>
                     </div>
                 </div>
             </div>	

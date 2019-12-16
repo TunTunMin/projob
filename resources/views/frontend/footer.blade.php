@@ -14,7 +14,7 @@
                             <li><a href="#">Site Map</a></li>
                         </ul>
                     </div>
-                </div>       
+                </div>
             </div>
             <div  class="col-lg-3 mb-5">
                 <div class="row mb-5">
@@ -32,7 +32,7 @@
                             <li><a href="#">Help</a></li>
                         </ul>
                     </div>
-                </div>       
+                </div>
             </div>
             <div  class="col-lg-3 mb-5">
                 <div class="row mb-5">
@@ -47,7 +47,7 @@
                             <li><a href="#">Term of Use</a></li>
                         </ul>
                     </div>
-                </div>       
+                </div>
             </div>
             <div  class="col-lg-3 mb-5">
                 <div class="row mb-5">
@@ -64,10 +64,10 @@
                             </li>
                             </ul>
                         </div>
-                    </div>       
+                    </div>
                 </div>
 
-            </div>          
+            </div>
         </div>
     </div>
 </footer>
@@ -76,7 +76,7 @@
         <div class="row">
             <div class="col-md-12">
                 <span>
-                    &copy; All Right Reserved By 
+                    &copy; All Right Reserved By
                     <a href="https://itvisionhub.com/" target="_blank">ItvisionHub</a>
                 </span>
             </div>
@@ -88,6 +88,6 @@
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('fontawesome/js/all.min.js')}}"></script>
 <script src="{{asset('fontawesome/js/fontawesome.js')}}"></script>
-
+@stack('js')
 </body>
 </html>

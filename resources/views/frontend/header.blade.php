@@ -20,7 +20,7 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
+			{{-- <ul class="navbar-nav mr-auto">
 				<li class="nav-item dropdown ">
 					<select class="mdb-select md-form colorful-select dropdown-primary">
 						<option value="" disabled>Choose Country</option>
@@ -32,8 +32,8 @@
 						<option value="3">Vietnum</option>
 					</select>
 				</li>
-			</ul>	
-			<nav class="nav nav-pills flex-column flex-sm-row">
+			</ul>	 --}}
+			<nav class="nav nav-pills flex-column flex-sm-row ml-auto">
 				
 				@guest
 				<li class="nav-item">

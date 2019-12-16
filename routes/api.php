@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/jobcounts', 'HomeController@JobCount')->name('jobcounts');
+Route::get('/alljobs', 'HomeController@AllJobs')->name('alljobs');
+
+// Route::middleware('auth:api')->group(function () {
+
+//     Route::get('/user',function(Request $request){
+//         return $request->user();
+//     });
+
+// });

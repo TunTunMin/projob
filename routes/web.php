@@ -13,10 +13,10 @@
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/searchjobs','HomeController@searchjobs');
 
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
   // DashBoard 
 Route::get('/dashboard','DashBoardController@index');
@@ -45,7 +45,6 @@ Route::resource('/user_detail_info','UserDetailInfoController');
 //company
 Route::resource('/company','CompanyController');
 
-Route::get('/home', 'HomeController@index')->name('home');
 });
 
 Auth::routes();
