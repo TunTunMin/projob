@@ -1,38 +1,7 @@
 @extends('frontend.master')
 @section('content')
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light py-2 nav-tabs">
-  <div class="container">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link navbar-nav pt-1" href="#">Search Jobs <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link navbar-nav pt-1" href="#">Company Profiles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link navbar-nav pt-1" href="#">Training</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link pt-1 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            More
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
-      <div class="form-inline my-2 my-lg-0">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
+@include('frontend.search_header')
 <div class=" navbar navbar-light list-group-item-secondary mt-2 py-0 nav-tabs">
   <div class="container">
     <a class="text-left"href="#">Jobs in <b>Singapore</b></a>
@@ -45,15 +14,15 @@
     <div class="col-xs-12 col-sm-12 col-md-3">
       <div class="bg-light">
         <h4 class="pl-1 my-3 mb-3 w-100">Search Criteria</h4>
-        <form action="searchjobs" method="GET">
+        <form id="search_form1" method="GET">
           <!-- Search form -->
           <div class="form-inline active-pink-3 active-pink-4">
                 <input class="form-control form-control-sm ml-1 my-1 w-100" type="text" placeholder="Job Title or keywords"
-                aria-label="Job Title or keywords" name="title">
+                aria-label="Job Title or keywords" name="title" id="title">
               </div>
 
           <div class="form-inline">
-            <select class="custom-select form-control form-control-sm ml-1 my-1 w-100" id="inputGroupSelect02" name="job_specification">
+            <select class="custom-select form-control form-control-sm ml-1 my-1 w-100" id="job_specification" name="job_specification">
               <option value="">All Specilizations</option>
             @forelse ($job_specifications as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -66,7 +35,7 @@
           <!-- Search form -->
           <div class="form-inline active-pink-3 active-pink-4">
             <input type="number" class="form-control form-control-sm ml-1 my-1 w-100" type="text" placeholder="Enter minimum Amount"
-            aria-label="Enter minimum Amount" name="salary_min">
+            aria-label="Enter minimum Amount" name="salary_min" id="salary_min">
           </div>
 
           <!-- Search form -->
@@ -186,9 +155,9 @@
             </select>
           </div>
         </nav>
-
+        <div class="content-data"></div>
           {{-- {{dd($alljobs)}} --}}
-          @foreach ($alljobs as $job)
+          {{-- @foreach ($alljobs as $job)
           <div class="row border-bottom">
           <div class="col-9 py-2">
             <div class="pl-3">
@@ -215,7 +184,7 @@
 
           </div>
         </div>
-          @endforeach
+          @endforeach --}}
 
 
 
@@ -226,29 +195,86 @@
 
   @endsection
 @push('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.css">
-<link rel="stylesheet" href="{{URL::asset('css/highlight_github_theme.css')}}">
+
 <style>
-    #slider12a .slider-track-high, #slider12c .slider-track-high {
-	background: green;
-}
 
-#slider12b .slider-track-low, #slider12c .slider-track-low {
-	background: red;
-}
-
-#slider12c .slider-selection {
-	background: yellow;
-}
 </style>
 @endpush
 @push('js')
-<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+   // GET request for remote image
+   var title, salary_min, job_specification = null;
+   var data = '';
+   $('#search_form1').submit(function(e){
+    title = $('#title').val();
+    salary_min = $('#salary_min').val();
+    job_specification = $('#job_specification').val();
+    $.ajax({
+      type: 'GET',
+      url : '/api/alljobs',
+      contentType: "application/json; charset=utf-8",
+      responseType: 'json',
+      data: {title: title, salary_min: salary_min, job_specification : job_specification},
+      success: function(response){
+          console.log('status');
+        data = '';
+        jQuery.each(response.data, function(key, value){
+        $('.content-data').html = "";
+          showContent(value);
+        });
 
-// With JQuery
-$("#ex2").slider({});
+      }
+    });
+  });
 
+axios({
+  method: 'get',
+  url: '/api/alljobs',
+  responseType: 'json',
+
+  data: {title: title, job_specification : job_specification, salary_min : salary_min}
+
+})
+  .then(function (response) {
+    // console.log(response);
+
+    jQuery.each(response.data, function(key, value){
+    $('.content-data').html = "";
+      showContent(value);
+    });
+    $('.content-data').html(data);
+
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  function showContent(value){
+    data += '<div class="row border-bottom">';
+        data += '<div class="col-9 py-2">';
+        data += '<div class="pl-3">';
+        data += '<a href="/job_details/'+value.id+'">';
+        data +='<h5>'+value.title+'</h5>';
+        data +='</a>';
+        data +='<a href="#">'+value.company+'</a>';
+        data += '</div>';
+        data += '<div class="my-3 pl-3">';
+        data +='<ul class="list-unstyled">';
+        data += '<li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>'+value.job_location +'</li>';
+        data += '<li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>';
+
+        data += '<li><i class="fas fa-calendar"></i> '+ value.post_date  + '</li>';
+        data += '</ul>';
+        data += '<p>' + value.job_highlights.substr(0,100,'...') + '</p>';
+        data += '</div></div><div class="col-3 py-2">';
+        if (value.logo != null)
+            data += '<a href="#">';
+            data += '<img class="float-right mr-3 my-3 img-fluid" src="projob_images/'+value.logo+'" alt="projob">';
+            data += '</a>';
+
+        data += '</div></div>';
+  }
 
 </script>
 @endpush

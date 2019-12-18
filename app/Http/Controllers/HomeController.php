@@ -49,7 +49,7 @@ class HomeController extends Controller
     /** Search Jobs */
     public function searchjobs(Request $request)
     {
-        // dd($request->all());
+
 
         if (!empty($request->all())) {
 
@@ -60,8 +60,7 @@ class HomeController extends Controller
         }
 
         $response = $this->AllJobs($request);
-        //    echo $response->getStatusCode(); # 200
-        $alljobs = $response->getData(); //Body data from API
+        $alljobs = $response->getData();
 
         $alljobs = collect($alljobs)->except('status');
         $alljobs = json_decode($alljobs, true);
@@ -76,11 +75,11 @@ class HomeController extends Controller
         return view('frontend.search', ['alljobs' => $paginator_Data, 'job_specifications' => $job_specifications]);
     }
     // API and use for All Jobs
-    public static function AllJobs(Request $request)
+    public static function AllJobs(Request $request = null)
     {
 
         $jobs = Job::select('*');
-        if ($request->has('title')) {
+        if ($request <> null) {
             $jobs = $jobs->where('title', 'LIKE', '%' . $request->title . '%');
         }
         $jobs = $jobs->get();
@@ -88,6 +87,7 @@ class HomeController extends Controller
         $alljobs = [];
         if (count($jobs) > 0) {
             foreach ($jobs as $key => $job) {
+                $alljobs[$key]['id'] = $job->id;
                 $alljobs[$key]['post_date'] = $job->post_date;
                 $alljobs[$key]['title'] = $job->title;
                 $alljobs[$key]['job_highlights'] = strip_tags($job->job_highlights);
@@ -104,10 +104,33 @@ class HomeController extends Controller
                 $alljobs[$key]['location'] = $job->getCompany->location;
                 $alljobs[$key]['logo'] = $job->getCompany->logo;
             }
-            $alljobs['status'] = true;
-        } else {
-            $alljobs['status'] = false;
+            // $alljobs['status'] = true;
         }
+
+        // dd($alljobs);
         return response()->json($alljobs);
+    }
+
+    // job details
+    public function job_details($id)
+    {
+        $job = Job::findorFail($id);
+        $job_data['id'] = $job->id;
+        $job_data['post_date'] = $job->post_date;
+        $job_data['title'] = $job->title;
+        $job_data['job_highlights'] = strip_tags($job->job_highlights);
+        $job_data['job_description'] = strip_tags($job->job_description);
+        $job_data['carrer_level'] = $job->carrer_level;
+        $job_data['qualification'] = $job->qualification;
+        $job_data['employee_type'] = $job->employee_type;
+        $job_data['salary_unit'] = $job->salary_unit;
+        $job_data['salary_from'] = $job->salary_from;
+        $job_data['salary_to'] = $job->salary_to;
+        $job_data['job_specification'] = $job->getJobSpecification->name;
+        $job_data['job_type'] = $job->getJobType->name;
+        $job_data['company'] = $job->getCompany->name;
+        $job_data['location'] = $job->getCompany->location;
+        $job_data['logo'] = $job->getCompany->logo;
+        return response()->json($job_data);
     }
 }
