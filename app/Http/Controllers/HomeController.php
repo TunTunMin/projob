@@ -51,36 +51,43 @@ class HomeController extends Controller
     {
 
 
-        if (!empty($request->all())) {
+        // if (!empty($request->all())) {
 
-            $request = $request;
-            // $alljobs = Job::where('title', 'LIKE', '%' . $request['title'] . '%')->get()->toArray();
-        } else {
-            $request = null;
-        }
+        //     $request = $request;
+        //     $alljobs = Job::where('title', 'LIKE', '%' . $request['title'] . '%')->get()->toArray();
+        // } else {
+        //     $request = null;
+        // }
 
-        $response = $this->AllJobs($request);
-        $alljobs = $response->getData();
+        // $response = $this->AllJobs($request);
+        // $alljobs = $response->getData();
 
-        $alljobs = collect($alljobs)->except('status');
-        $alljobs = json_decode($alljobs, true);
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 20;
-        $currentItems = array_slice($alljobs, $perPage * ($currentPage - 1), $perPage);
+        // $alljobs = collect($alljobs)->except('status');
+        // $alljobs = json_decode($alljobs, true);
+        // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // $perPage = 20;
+        // $currentItems = array_slice($alljobs, $perPage * ($currentPage - 1), $perPage);
 
-        $paginator_Data = new LengthAwarePaginator($currentItems, count($alljobs), $perPage, $currentPage);
+        // $paginator_Data = new LengthAwarePaginator($currentItems, count($alljobs), $perPage, $currentPage);
 
         $job_specifications = JobSpecification::all();
 
-        return view('frontend.search', ['alljobs' => $paginator_Data, 'job_specifications' => $job_specifications]);
+        return view('frontend.search', ['job_specifications' => $job_specifications]);
     }
     // API and use for All Jobs
-    public static function AllJobs(Request $request = null)
+    public static function AllJobs(Request $request)
     {
-
+        // dd($request->all());
         $jobs = Job::select('*');
-        if ($request <> null) {
+        if (isset($request->title)) {
             $jobs = $jobs->where('title', 'LIKE', '%' . $request->title . '%');
+        }
+        if (isset($request->job_specification)) {
+            $jobs = $jobs->where('job_specification_id', $request->job_specification);
+        }
+        if (isset($request->salary_min)) {
+
+            $jobs = $jobs->whereRaw('? between salary_from and salary_to', [$request->salary_min]);
         }
         $jobs = $jobs->get();
 

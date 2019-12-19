@@ -5,7 +5,7 @@
 <div class=" navbar navbar-light list-group-item-secondary mt-2 py-0 nav-tabs">
   <div class="container">
     <a class="text-left"href="#">Jobs in <b>Singapore</b></a>
-    <a class="text-right nav-link" href="#">{{$alljobs->currentPage()}} - {{ $alljobs->lastPage()}} of {{$alljobs->Total()}} Jobs</a>
+    {{-- <a class="text-right nav-link" href="#">{{$alljobs->currentPage()}} - {{ $alljobs->lastPage()}} of {{$alljobs->Total()}} Jobs</a> --}}
   </div>
 </div>
 
@@ -14,7 +14,7 @@
     <div class="col-xs-12 col-sm-12 col-md-3">
       <div class="bg-light">
         <h4 class="pl-1 my-3 mb-3 w-100">Search Criteria</h4>
-        <form id="search_form1" method="GET">
+        <form id="search_form1">
           <!-- Search form -->
           <div class="form-inline active-pink-3 active-pink-4">
                 <input class="form-control form-control-sm ml-1 my-1 w-100" type="text" placeholder="Job Title or keywords"
@@ -207,74 +207,72 @@
    var title, salary_min, job_specification = null;
    var data = '';
    $('#search_form1').submit(function(e){
+    e.preventDefault();
     title = $('#title').val();
     salary_min = $('#salary_min').val();
     job_specification = $('#job_specification').val();
-    $.ajax({
-      type: 'GET',
-      url : '/api/alljobs',
-      contentType: "application/json; charset=utf-8",
-      responseType: 'json',
-      data: {title: title, salary_min: salary_min, job_specification : job_specification},
-      success: function(response){
-          console.log('status');
+
+    axios({
+            method: 'get',
+            url: '/api/alljobs',
+            responseType: 'json',
+            params : {title: title, salary_min: salary_min, job_specification : job_specification},
+            })
+            .then(function (response) {
+
+                showContent(response);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        });
+    // default show contenta data from api
+    axios({
+    method: 'get',
+    url: '/api/alljobs',
+    responseType: 'json',
+
+    })
+    .then(function (response) {
+
+        showContent(response);
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+    function showContent(response){
+        console.log(response);
         data = '';
         jQuery.each(response.data, function(key, value){
-        $('.content-data').html = "";
-          showContent(value);
+        data += '<div class="row border-bottom">';
+            data += '<div class="col-9 py-2">';
+            data += '<div class="pl-3">';
+            data += '<a href="/job_details/'+value.id+'">';
+            data +='<h5>'+value.title+'</h5>';
+            data +='</a>';
+            data +='<a href="#">'+value.company+'</a>';
+            data += '</div>';
+            data += '<div class="my-3 pl-3">';
+            data +='<ul class="list-unstyled">';
+            data += '<li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>'+value.job_location +'</li>';
+            data += '<li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>';
+
+            data += '<li><i class="fas fa-calendar"></i> '+ value.post_date  + '</li>';
+            data += '</ul>';
+            data += '<p>' + value.job_highlights.substr(0,100,'...') + '</p>';
+            data += '</div></div><div class="col-3 py-2">';
+            if (value.logo != null)
+                data += '<a href="#">';
+                data += '<img class="float-right mr-3 my-3 img-fluid" src="projob_images/'+value.logo+'" alt="projob">';
+                data += '</a>';
+
+            data += '</div></div>';
         });
-
-      }
-    });
-  });
-
-axios({
-  method: 'get',
-  url: '/api/alljobs',
-  responseType: 'json',
-
-  data: {title: title, job_specification : job_specification, salary_min : salary_min}
-
-})
-  .then(function (response) {
-    // console.log(response);
-
-    jQuery.each(response.data, function(key, value){
-    $('.content-data').html = "";
-      showContent(value);
-    });
-    $('.content-data').html(data);
-
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-  function showContent(value){
-    data += '<div class="row border-bottom">';
-        data += '<div class="col-9 py-2">';
-        data += '<div class="pl-3">';
-        data += '<a href="/job_details/'+value.id+'">';
-        data +='<h5>'+value.title+'</h5>';
-        data +='</a>';
-        data +='<a href="#">'+value.company+'</a>';
-        data += '</div>';
-        data += '<div class="my-3 pl-3">';
-        data +='<ul class="list-unstyled">';
-        data += '<li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>'+value.job_location +'</li>';
-        data += '<li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>';
-
-        data += '<li><i class="fas fa-calendar"></i> '+ value.post_date  + '</li>';
-        data += '</ul>';
-        data += '<p>' + value.job_highlights.substr(0,100,'...') + '</p>';
-        data += '</div></div><div class="col-3 py-2">';
-        if (value.logo != null)
-            data += '<a href="#">';
-            data += '<img class="float-right mr-3 my-3 img-fluid" src="projob_images/'+value.logo+'" alt="projob">';
-            data += '</a>';
-
-        data += '</div></div>';
-  }
+        $('.content-data').html(data);
+    }
 
 </script>
 @endpush
