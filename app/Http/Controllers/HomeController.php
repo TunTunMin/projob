@@ -74,6 +74,13 @@ class HomeController extends Controller
 
         return view('frontend.search', ['job_specifications' => $job_specifications]);
     }
+
+    public function jobDetails($id)
+    {
+
+        $data = self::job_details($id)->getData();
+        return view('frontend.job_details')->with('data', $data);
+    }
     // API and use for All Jobs
     public static function AllJobs(Request $request)
     {
@@ -118,7 +125,7 @@ class HomeController extends Controller
         return response()->json($alljobs);
     }
 
-    // job details
+    // job details for api
     public function job_details($id)
     {
         $job = Job::findorFail($id);
@@ -137,7 +144,14 @@ class HomeController extends Controller
         $job_data['job_type'] = $job->getJobType->name;
         $job_data['company'] = $job->getCompany->name;
         $job_data['location'] = $job->getCompany->location;
+        $job_data['cover_photo'] = $job->getCompany->cover_photo;
         $job_data['logo'] = $job->getCompany->logo;
+        $job_data['average_processtime'] = $job->getCompany->average_processtime;
+        $job_data['ea_no'] = $job->getCompany->ea_no;
+        $job_data['ea_register_no'] = $job->getCompany->ea_register_no;
+        $job_data['industry'] = $job->getCompany->industry;
+        $job_data['company_size'] = $job->getCompany->company_size;
+        $job_data['company_overview'] = $job->getCompany->company_overview;
         return response()->json($job_data);
     }
 }

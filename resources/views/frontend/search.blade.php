@@ -155,38 +155,7 @@
             </select>
           </div>
         </nav>
-        <div class="content-data"></div>
-          {{-- {{dd($alljobs)}} --}}
-          {{-- @foreach ($alljobs as $job)
-          <div class="row border-bottom">
-          <div class="col-9 py-2">
-            <div class="pl-3">
-                <a href="#">
-                    <h5>{{ $job['title'] }}</h5>
-                  </a>
-                <a href="#">{{ $job['company']}}</a>
-            </div>
-            <div class="my-3 pl-3">
-              <ul class="list-unstyled">
-              <li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>{{ $job['location']}}</li>
-                <li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>
-              <li><i class="fas fa-calendar"></i>  {{date('d M Y h:i',strtotime($job['post_date']))}}</li>
-              </ul>
-            <p>{!! str_limit(strip_tags($job['job_highlights']),150,'...') !!}</p>
-            </div>
-          </div>
-          <div class="col-3 py-2">
-              @if ($job['logo'] <> null)
-                <a href="#">
-                <img class="float-right mr-3 my-3 img-fluid" src="{{URL::asset('projob_images/'.$job['logo'])}}" alt="projob">
-                </a>
-              @endif
-
-          </div>
-        </div>
-          @endforeach --}}
-
-
+      <div class="content-data"></div>
 
         </div>
       </div>
@@ -201,8 +170,9 @@
 </style>
 @endpush
 @push('js')
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+ <script>
    // GET request for remote image
    var title, salary_min, job_specification = null;
    var data = '';
@@ -250,7 +220,7 @@
         data += '<div class="row border-bottom">';
             data += '<div class="col-9 py-2">';
             data += '<div class="pl-3">';
-            data += '<a href="/job_details/'+value.id+'">';
+            data += '<a href="/jobdetails/'+value.id+'">';
             data +='<h5>'+value.title+'</h5>';
             data +='</a>';
             data +='<a href="#">'+value.company+'</a>';

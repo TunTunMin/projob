@@ -15,9 +15,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 Route::get('/', 'HomeController@index');
 Route::get('/searchjobs', 'HomeController@searchjobs');
-Route::get('/job_details/{id}', function () {
-    return view('frontend.job_details');
-});
+Route::get('/jobdetails/{id}', 'HomeController@jobDetails');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
