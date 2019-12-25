@@ -24,7 +24,8 @@
           </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <form id="search_form" action="/searchjob" method="POST">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
           <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit">Search</button>
         </form>
       </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\JobSpecification;
 use App\Models\JobType;
+use App\Models\Company;
 use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -152,6 +153,7 @@ class HomeController extends Controller
         $job_data['industry'] = $job->getCompany->industry;
         $job_data['company_size'] = $job->getCompany->company_size;
         $job_data['company_overview'] = $job->getCompany->company_overview;
+        $job_data['gallery'] = json_decode($job->getCompany->gallery);
         return response()->json($job_data);
     }
 }

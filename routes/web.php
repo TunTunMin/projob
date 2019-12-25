@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/searchjobs', 'HomeController@searchjobs');
 Route::get('/jobdetails/{id}', 'HomeController@jobDetails');
 
+
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     // DashBoard
