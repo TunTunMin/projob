@@ -5,7 +5,8 @@
 <div class=" navbar navbar-light list-group-item-secondary mt-2 py-0 nav-tabs">
   <div class="container">
     <a class="text-left"href="#">Jobs in <b>Singapore</b></a>
-    {{-- <a class="text-right nav-link" href="#">{{$alljobs->currentPage()}} - {{ $alljobs->lastPage()}} of {{$alljobs->Total()}} Jobs</a> --}}
+    {{-- {{dd($data->data)}} --}}
+    <a class="text-right nav-link" href="#">{{$data->current_page}} - {{ $data->last_page}} of {{$data->total}} Jobs</a>
   </div>
 </div>
 
@@ -14,7 +15,7 @@
     <div class="col-xs-12 col-sm-12 col-md-3">
       <div class="bg-light">
         <h4 class="pl-1 my-3 mb-3 w-100">Search Criteria</h4>
-        <form id="search_form1">
+        <form id="search_form1" method="GET" action="/searchjobs">
           <!-- Search form -->
           <div class="form-inline active-pink-3 active-pink-4">
                 <input class="form-control form-control-sm ml-1 my-1 w-100" type="text" placeholder="Job Title or keywords"
@@ -155,8 +156,46 @@
             </select>
           </div>
         </nav>
-      <div class="content-data"></div>
+      {{-- <div class="content-data"></div> --}}
+        {{-- {{dd($data)}} --}}
+        @if (count($data->data) > 0)
+            @foreach ($data->data as $job)
 
+            <div class="row border-bottom">
+                <div class="col-9 py-2">
+                <div class="pl-3">
+                <a href="/jobdetails/{{$job->id}}">
+                <h5>{{$job->title}}</h5>
+                </a>
+                <a href="#">{{$job->get_company->name}}</a>
+                </div>
+                <div class="my-3 pl-3">
+                <ul class="list-unstyled">
+                <li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>{{$job->get_company->location }}</li>
+                <li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>
+
+                <li><i class="fas fa-calendar"></i> {{$job->post_date}} </li>
+                </ul>
+            <p>{!! str_limit($job->job_highlights,'100','...') !!}</p>
+                </div></div><div class="col-3 py-2">
+                @if ($job->get_company->logo != null)
+                    <a href="#">
+                    <img class="float-right mr-3 my-3 img-fluid" src="projob_images/{{$job->get_company->logo}}" alt="projob">
+                    </a>
+                @endif
+                </div>
+            </div>
+            @endforeach
+
+            @if (count($data->data)> 20)
+            <div class="row mt-2">
+                <div class="col-md-12">
+
+                    @include('frontend.pagination',['paginator' => $data])
+                </div>
+            </div>
+            @endif
+        @endif
         </div>
       </div>
 
@@ -171,11 +210,29 @@
 @endpush
 @push('js')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
  <script>
    // GET request for remote image
    var title, salary_min, job_specification = null;
    var data = '';
+   $('#search_form').submit(function(e){
+    e.preventDefault();
+    title = $('#title-search').val();
+    axios({
+            method: 'get',
+            url: '/api/alljobs',
+            responseType: 'json',
+            params : {title: title},
+            })
+            .then(function (response) {
+
+                showContent(response);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+   });
    $('#search_form1').submit(function(e){
     e.preventDefault();
     title = $('#title').val();
@@ -214,16 +271,16 @@
     });
 
     function showContent(response){
-        console.log(response);
+        console.log(response.data.data);
         data = '';
-        jQuery.each(response.data, function(key, value){
+        jQuery.each(response.data.data, function(key, value){
         data += '<div class="row border-bottom">';
             data += '<div class="col-9 py-2">';
             data += '<div class="pl-3">';
             data += '<a href="/jobdetails/'+value.id+'">';
             data +='<h5>'+value.title+'</h5>';
             data +='</a>';
-            data +='<a href="#">'+value.company+'</a>';
+            data +='<a href="#">'+value.get_company.name+'</a>';
             data += '</div>';
             data += '<div class="my-3 pl-3">';
             data +='<ul class="list-unstyled">';
@@ -234,9 +291,9 @@
             data += '</ul>';
             data += '<p>' + value.job_highlights.substr(0,100,'...') + '</p>';
             data += '</div></div><div class="col-3 py-2">';
-            if (value.logo != null)
+            if (value.get_company.logo != null)
                 data += '<a href="#">';
-                data += '<img class="float-right mr-3 my-3 img-fluid" src="projob_images/'+value.logo+'" alt="projob">';
+                data += '<img class="float-right mr-3 my-3 img-fluid" src="projob_images/'+value.get_company.logo+'" alt="projob">';
                 data += '</a>';
 
             data += '</div></div>';
@@ -244,5 +301,5 @@
         $('.content-data').html(data);
     }
 
-</script>
+</script> --}}
 @endpush

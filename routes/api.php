@@ -16,9 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/jobcounts', 'HomeController@JobCount')->name('jobcounts');
-Route::get('/alljobs', 'HomeController@AllJobs')->name('alljobs');
-Route::get('/job_details/{id}', 'HomeController@job_details');
+Route::get('/jobcounts', 'Api\JobsController@JobCount')->name('jobcounts');
+Route::get('/alljobs', 'Api\JobsController@AllJobs')->name('alljobs');
+Route::get('/job_details/{id}', 'Api\JobsController@job_details');
 
 // Route::middleware('auth:api')->group(function () {
 

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobCollection;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\JobSpecification;
 use App\Models\JobType;
 use App\Models\Company;
-use GuzzleHttp\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
+// use GuzzleHttp;
+use App\Http\Controllers\Api\JobsController;
 
 class HomeController extends Controller
 {
@@ -19,6 +21,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        // $this->client = new Client();
+
         // $this->middleware('auth');
     }
 
@@ -36,22 +40,14 @@ class HomeController extends Controller
 
         return view('index', ['jobcounts' => $jobcounts->jobcount]);
     }
-    /** JobCount and API  */
-    public function JobCount()
-    {
-        $jobcounts['jobcount'] = Job::count();
-        if ($jobcounts['jobcount'] == 0) {
-            $jobcounts['status'] = false;
-        } else {
-            $jobcounts['status'] = true;
-        }
-        return response()->json($jobcounts);
-    }
+
     /** Search Jobs */
     public function searchjobs(Request $request)
     {
-
-
+        // dd(JobsController::AllJobs());
+        // $request = new GuzzelRequest('GET', 'http://localhost:8000/api/alljobs');
+        // $response = new GuzzleHttp\get('http://localhost:8000/api/alljobs');
+        // dd($response->getBody());
         // if (!empty($request->all())) {
 
         //     $request = $request;
@@ -60,8 +56,8 @@ class HomeController extends Controller
         //     $request = null;
         // }
 
-        // $response = $this->AllJobs($request);
-        // $alljobs = $response->getData();
+        $response = JobsController::AllJobs($request);
+        $alljobs = $response->getData();
 
         // $alljobs = collect($alljobs)->except('status');
         // $alljobs = json_decode($alljobs, true);
@@ -70,10 +66,10 @@ class HomeController extends Controller
         // $currentItems = array_slice($alljobs, $perPage * ($currentPage - 1), $perPage);
 
         // $paginator_Data = new LengthAwarePaginator($currentItems, count($alljobs), $perPage, $currentPage);
-
+        // dd($paginator_Data);
         $job_specifications = JobSpecification::all();
-
-        return view('frontend.search', ['job_specifications' => $job_specifications]);
+        // dd($alljobs);
+        return view('frontend.search', ['job_specifications' => $job_specifications, 'data' => $alljobs]);
     }
 
     public function jobDetails($id)
@@ -83,48 +79,50 @@ class HomeController extends Controller
         return view('frontend.job_details')->with('data', $data);
     }
     // API and use for All Jobs
-    public static function AllJobs(Request $request)
-    {
-        // dd($request->all());
-        $jobs = Job::select('*');
-        if (isset($request->title)) {
-            $jobs = $jobs->where('title', 'LIKE', '%' . $request->title . '%');
-        }
-        if (isset($request->job_specification)) {
-            $jobs = $jobs->where('job_specification_id', $request->job_specification);
-        }
-        if (isset($request->salary_min)) {
+    // public static function AllJobs(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $jobs = Job::select('*');
+    //     if (isset($request->title)) {
+    //         $jobs = $jobs->where('title', 'LIKE', '%' . $request->title . '%');
+    //     }
+    //     if (isset($request->job_specification)) {
+    //         $jobs = $jobs->where('job_specification_id', $request->job_specification);
+    //     }
+    //     if (isset($request->salary_min)) {
 
-            $jobs = $jobs->whereRaw('? between salary_from and salary_to', [$request->salary_min]);
-        }
-        $jobs = $jobs->get();
+    //         $jobs = $jobs->whereRaw('? between salary_from and salary_to', [$request->salary_min]);
+    //     }
+    //     $jobs = $jobs->with('getCompany')->paginate(20);
 
-        $alljobs = [];
-        if (count($jobs) > 0) {
-            foreach ($jobs as $key => $job) {
-                $alljobs[$key]['id'] = $job->id;
-                $alljobs[$key]['post_date'] = $job->post_date;
-                $alljobs[$key]['title'] = $job->title;
-                $alljobs[$key]['job_highlights'] = strip_tags($job->job_highlights);
-                $alljobs[$key]['job_description'] = strip_tags($job->job_description);
-                $alljobs[$key]['carrer_level'] = $job->carrer_level;
-                $alljobs[$key]['qualification'] = $job->qualification;
-                $alljobs[$key]['employee_type'] = $job->employee_type;
-                $alljobs[$key]['salary_unit'] = $job->salary_unit;
-                $alljobs[$key]['salary_from'] = $job->salary_from;
-                $alljobs[$key]['salary_to'] = $job->salary_to;
-                $alljobs[$key]['job_specification'] = $job->getJobSpecification->name;
-                $alljobs[$key]['job_type'] = $job->getJobType->name;
-                $alljobs[$key]['company'] = $job->getCompany->name;
-                $alljobs[$key]['location'] = $job->getCompany->location;
-                $alljobs[$key]['logo'] = $job->getCompany->logo;
-            }
-            // $alljobs['status'] = true;
-        }
+    //     // $alljobs = [];
+    //     // if (count($jobs) > 0) {
+    //     //     foreach ($jobs as $key => $job) {
 
-        // dd($alljobs);
-        return response()->json($alljobs);
-    }
+    //     //         $alljobs[$key]['id'] = $job->id;
+    //     //         $alljobs[$key]['post_date'] = $job->post_date;
+    //     //         $alljobs[$key]['title'] = $job->title;
+    //     //         $alljobs[$key]['job_highlights'] = strip_tags($job->job_highlights);
+    //     //         $alljobs[$key]['job_description'] = strip_tags($job->job_description);
+    //     //         $alljobs[$key]['carrer_level'] = $job->carrer_level;
+    //     //         $alljobs[$key]['qualification'] = $job->qualification;
+    //     //         $alljobs[$key]['employee_type'] = $job->employee_type;
+    //     //         $alljobs[$key]['salary_unit'] = $job->salary_unit;
+    //     //         $alljobs[$key]['salary_from'] = $job->salary_from;
+    //     //         $alljobs[$key]['salary_to'] = $job->salary_to;
+    //     //         $alljobs[$key]['job_specification'] = $job->getJobSpecification->name;
+    //     //         $alljobs[$key]['job_type'] = $job->getJobType->name;
+    //     //         $alljobs[$key]['company'] = $job->getCompany->name;
+    //     //         $alljobs[$key]['location'] = $job->getCompany->location;
+    //     //         $alljobs[$key]['logo'] = $job->getCompany->logo;
+    //     //     }
+
+    //     //     // $alljobs['status'] = true;
+    //     // }
+
+    //     // dd($alljobs);
+    //     return response()->json($jobs);
+    // }
 
     // job details for api
     public function job_details($id)
