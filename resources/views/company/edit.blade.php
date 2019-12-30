@@ -21,11 +21,11 @@
                                         <option value="">Choose Type</option>
                                             @foreach ($types as $item)
                                                 @if ($item->id == $company->type_id)
-                                                    <option value="{{$item->id}}" selected>{{$item->name}}</option>  
+                                                    <option value="{{$item->id}}" selected>{{$item->name}}</option>
                                                 @else
                                                  <option value="{{$item->id}}">{{$item->name}}</option>
                                                 @endif
-                                                
+
                                             @endforeach
                                         @endif
                                     </select>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="form-group">
                             <label for="overview">Company Overiew:</label>
                             <textarea name="company_overview" id="overview" cols="30" rows="10" placeholder="Enter Company Overview">{{$company->company_overview}}</textarea>
@@ -61,7 +61,7 @@
                                     <label for="ea_register_no">EA Register No:</label>
                                 <input type="text" name="ea_register_no" id="ea_register_no" placeholder="Enter EA Register Number" class="form-control" value="{{$company->ea_register_no}}">
                                 </div>
-                               
+
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
@@ -93,8 +93,20 @@
                                 <input type="text" name="benefit_other" id="benefits_other" placeholder="Enter Benefits Other" class="form-control" value="{{$company->benefit_other}}">
                                 </div>
                             </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="website">Website:</label>
+                                <input type="text" name="website" id="website" placeholder="Enter Website Link" class="form-control" value="{{$company->website}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="facebook">Facebook:</label>
+                                    <input type="text" name="facebook" id="facebook" placeholder="Enter Facebook Link" class="form-control" value="{{$company->facebook}}">
+                                </div>
+                            </div>
                         </div>
-                        
+
                         <div class="form-group">
                             {!! Form::label('logo', 'logo:') !!}
                             {!! Form::file('logo', ['class' => 'form-control','id' => 'logo']) !!}
@@ -133,7 +145,7 @@
                            <div class="row">
                                <div class="col-md-3">
                                     <div class="img-wrap" id="cover-del-display">
-                                    
+
                                     @if ($cover_photo <> 'no-image.png')
                                         <span class="close" onclick="remove_cover('{{$cover_photo}}')">&times;</span>
                                     @endif
@@ -148,11 +160,11 @@
                             <input type="hidden" name="gallery_hidden" value="{{isset($company->gallery) ? $company->gallery : null}}" id="gallery_original">
                             <input type="hidden" name="gallery_del" id="gallery_del">
                             <div class="row" id="gallery_display">
-                               
+
                             </div>
-                          
+
                             <?php
-                          
+
                             if (count(array_filter(json_decode($company->gallery))) < 1){
                                 ?>
                             <div class="row">
@@ -161,35 +173,35 @@
                                 </div>
                             </div>
                             <?php
-                            
+
                             }else{
                                 $gallery = json_decode($company->gallery);
                                 ?>
                                 <div class="row">
-                                    @foreach ($gallery as $key => $item) 
+                                    @foreach ($gallery as $key => $item)
                                     <div class="col-md-3" id="galleryhide{{$key}}">
                                         <div class="img-wrap gallery-del-display">
                                         <span class="close" onclick="remove_gallery('{{$item}}',{{$key}});">&times;</span>
                                         <img id="cover_display" src="{{URL::asset('projob_images/'.$item)}}" class="img-fluid"/>
                                         </div>
                                     </div>
-                                    @endforeach   
-                                    
+                                    @endforeach
+
                                 </div>
                                 <?php
 
                             }
                         ?>
-                        
+
                         @if($errors->any())
                             {!! implode('', $errors->all('<div>:message</div>')) !!}
                         @endif
                         </div>
-                        
+
                     </div>
                     <div class="card-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-danger ">Cancel</a>
-                        <div class="float-right"> 
+                        <div class="float-right">
                             <button type="submit" class="btn-info btn">Update</button>
                         </div>
                     </div>
@@ -206,10 +218,10 @@
 @stop
 @section('js')
 <script src="{{asset('js/summernote.js')}}"></script>
-<script> 
+<script>
 $(document).ready(function() {
   $('#overview').summernote();
- 
+
 });
 function readURL(input, status) {
   if (input.files && input.files[0]) {
@@ -217,22 +229,22 @@ function readURL(input, status) {
    var i;
 for (i = 0; i < filesAmount; i++) {
     var reader = new FileReader();
-    
+
     reader.onload = function(e) {
       if ( status == 1) {
-       
+
         $('#logo_display').attr('src', e.target.result);
       }else if( status == 2){
         $('#cover_display').attr('src', e.target.result);
       }else{
-          
+
             $('#gallery_display').append('<div class="col-md-3"><img id="theImg" src="'+e.target.result+'" class="img-fluid" /></div>');
-       
+
       }
     }
     reader.readAsDataURL(input.files[i]);
 }
- 
+
   }
 }
 
@@ -265,7 +277,7 @@ function remove_cover(photo) {
 }
 var arr = new Array();
 function remove_gallery(photo,key) {
-    
+
     arr.push(photo);
     var unique = arr.filter(function(itm, i, arr) {
         return i == arr.indexOf(itm);
@@ -274,18 +286,18 @@ function remove_gallery(photo,key) {
     // existing array
     var exit_arr = $('#gallery_original').val();
     // console.log($.parseJSON(exit_arr));
-   
+
     $('#gallery_del').val(JSON.stringify(unique));
     // console.log(JSON.stringify(unique));
     var item;
 
-   
+
     const result = $.parseJSON(exit_arr).filter(value => value != photo);
     $('#gallery_original').val(JSON.stringify(result)); //after remove and set value to exitistance vlaue
-    
+
     $('#galleryhide'+key).hide();
-    
-    
+
+
 }
 
 

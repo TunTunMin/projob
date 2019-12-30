@@ -82,11 +82,20 @@
                         </div>
                         <div class="col-md-6">
                             <h6>Website</h6>
-                            <a href="http://www.jobstudio.com.sg/" target="_blank">http://www.jobstudio.com.sg/</a>
+
+                            @if ($data->website <> null)
+                                <a href="{{$data->website}}" target="_blank">{{$data->website}}</a>
+                            @else
+                                -
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <h6>Facebook Fan Page</h6>
-                            <a  target="_blank" href="https://www.facebook.com/JobStudioSG">https://www.facebook.com/JobStudioSG</a>
+                            @if ($data->facebook <> null)
+                                <a  target="_blank" href="{{$data->facebook}}">{{$data->facebook}}</a>
+                            @else
+                                -
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <h6>Company Size</h6>
@@ -152,7 +161,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     <h4><i class="far fa-building"></i> Company Overview</h4>
-                    <p>{!! $data->company_overview !!}
+                    <p>{!! strip_tags($data->company_overview) !!}
                     </p>
                 </div>
             </div>

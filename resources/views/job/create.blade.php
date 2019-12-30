@@ -36,10 +36,10 @@
                                     </select>
                                 </div>
                             </div>
-                          
+
                         </div>
-                      
-                        
+
+
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
@@ -64,7 +64,7 @@
                                     <label for="job_description">Job Description:</label>
                                     <textarea name="job_description" id="job_description"></textarea>
                                 </div>
-                               
+
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
@@ -74,7 +74,7 @@
                                         @if (count($job_specifications))
                                             @foreach ($job_specifications as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach  
+                                            @endforeach
                                         @endif
                                     </select>
                                 </div>
@@ -85,14 +85,14 @@
                                     <input type="text" name="career_level" id="career_level" placeholder="Enter Career Level" class="form-control" required>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label for="qualification	">Qualification:</label>
                                     <input type="text" name="qualification" id="qualification" placeholder="Enter Qualification" class="form-control">
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label for="employee_type">Employee Type*:</label>
@@ -101,17 +101,17 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-row">
-                                    
+
                                     <div class="form-group col-md-6">
                                         <label for="salary_from">Salary*:</label>
                                         <input type="text" name="salary_from" id="salary_from" placeholder="Enter Salary Minimum" class="form-control" required>
                                     </div>
-                                    
+
                                     <div class="form-group col-md-6">
                                         <label for="">&nbsp;</label>
                                         <input type="text" name="salary_to" id="salary_to" placeholder="Enter Salary Maximum" class="form-control" required>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-md-6 col-xs-12">
@@ -126,7 +126,7 @@
                                             {{$item}}
                                         </label>
                                     </div>
-                                    @else  
+                                    @else
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="salary_unit" id="{{$item}}" value="{{$item}}">
                                             <label class="form-check-label" for="{{$item}}">
@@ -134,14 +134,14 @@
                                             </label>
                                         </div>
                                     @endif
-                                @endforeach    
+                                @endforeach
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="card-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-danger ">Cancel</a>
-                        <div class="float-right"> 
+                        <div class="float-right">
                             <button type="submit" class="btn-info btn">Save</button>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
     #logo_display, #cover_display,.gallery_display{
         display: none;
     }
-    
+
 </style>
 @stop
 @section('js')
@@ -170,7 +170,7 @@
 <script src="{{asset('fontawesome/js/fontawesome.js')}}"></script>
 
 <script>
-    
+
 $(document).ready(function() {
   $('#job_description').summernote();
   $('#job_highlight').summernote();

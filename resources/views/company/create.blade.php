@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="form-group">
                             <label for="overview">Company Overiew:</label>
                             <textarea name="company_overview" id="overview" cols="30" rows="10" placeholder="Enter Company Overview"></textarea>
@@ -55,7 +55,7 @@
                                     <label for="ea_register_no">EA Register No:</label>
                                     <input type="text" name="ea_register_no" id="ea_register_no" placeholder="Enter EA Register Number" class="form-control">
                                 </div>
-                               
+
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
@@ -87,8 +87,20 @@
                                     <input type="text" name="benefit_other" id="benefits_other" placeholder="Enter Benefits Other" class="form-control">
                                 </div>
                             </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="website">Website:</label>
+                                    <input type="text" name="website" id="website" placeholder="Enter Website Link" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="facebook">Facebook:</label>
+                                    <input type="text" name="facebook" id="facebook" placeholder="Enter Facebook Link" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        
+
                         <div class="form-group">
                             {!! Form::label('logo', 'logo:') !!}
                             {!! Form::file('logo', ['class' => 'form-control','id' => 'logo']) !!}
@@ -106,11 +118,11 @@
 
                            </div>
                         </div>
-                        
+
                     </div>
                     <div class="card-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-danger ">Cancel</a>
-                        <div class="float-right"> 
+                        <div class="float-right">
                             <button type="submit" class="btn-info btn">Save</button>
                         </div>
                     </div>
@@ -130,7 +142,7 @@
 @stop
 @section('js')
 <script src="{{asset('js/summernote.js')}}"></script>
-<script> 
+<script>
 $(document).ready(function() {
   $('#overview').summernote();
 });
@@ -140,25 +152,25 @@ function readURL(input, status) {
    var i;
 for (i = 0; i < filesAmount; i++) {
     var reader = new FileReader();
-    
+
     reader.onload = function(e) {
         // console.log(e.target);
       if ( status == 1) {
-       
+
         $('#logo_display').attr('src', e.target.result);
       }else if( status == 2){
         $('#cover_display').attr('src', e.target.result);
       }else{
-          
+
              $('.gallery_display').append('<img id="theImg" src="'+e.target.result+'" width="200px" height="80px" />');
         // $('.gallery_display').attr('src', e.target.result);
-       
+
       }
     }
     reader.readAsDataURL(input.files[i]);
 }
 
-    
+
   }
 }
 
@@ -177,3 +189,4 @@ $('.gallery_display').css("display","block");
 </script>
 
 @stop
+

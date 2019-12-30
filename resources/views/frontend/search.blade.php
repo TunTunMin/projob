@@ -147,13 +147,14 @@
               <a class="nav-link" href="#">Recruitment Firms</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <select class="custom-select mr-sm-2 form-control form-control-sm ml-1 my-1 w-100" id="inputGroupSelect02">
+          <form class="form-inline my-2 my-lg-0" id="sort_title">
+            <select class="custom-select mr-sm-2 form-control form-control-sm ml-1 my-1 w-100" id="sort_title" name="sort_title">
               <option selected>Date</option>
               <option value="1">Job Title</option>
               <option value="2">Company</option>
               <option value="3">Location</option>
             </select>
+          </form>
           </div>
         </nav>
       {{-- <div class="content-data"></div> --}}
@@ -174,7 +175,10 @@
                 <li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>{{$job->get_company->location }}</li>
                 <li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>
 
-                <li><i class="fas fa-calendar"></i> {{$job->post_date}} </li>
+                <li>
+                    <i class="fas fa-calendar"></i> {{$job->post_date}}
+                    <span class="text-muted">({{\Carbon\Carbon::parse($job->post_date)->diffForHumans()}})</span>
+                </li>
                 </ul>
             <p>{!! str_limit($job->job_highlights,'100','...') !!}</p>
                 </div></div><div class="col-3 py-2">
@@ -209,7 +213,17 @@
 </style>
 @endpush
 @push('js')
-
+<script>
+$('#sort_title').on('change',function(e){
+e.preventDefault();
+var sort_title = $('#sort_title').val();
+console.log(sort_title);
+$.ajax({
+    method: 'get',
+    url : '/searchjobs'
+});
+});
+</script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
  <script>
    // GET request for remote image
