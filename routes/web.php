@@ -19,6 +19,14 @@ Route::get('/jobdetails/{id}', 'HomeController@jobDetails');
 Route::get('/first', function () {
     return view('auth.first_req');
 });
+//Second Request
+Route::get('/second', function(){
+    return view('auth.second_req');
+});
+//Third Request
+Route::get('third', function(){
+    return view('auth.third_req');
+});
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     // DashBoard
