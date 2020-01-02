@@ -1,7 +1,7 @@
 @extends('frontend.master')
 
 @section('content')
-<div class="container pt-5 pb-3"> 
+<div class="container pt-5 pb-3">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -10,7 +10,19 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                        <div class="form-group row">
+                            <label for="type" class="col-md-4 col-form-label text-md-right">Type*:</label>
+                            <div class="col-md-6">
+                                <select name="type" id="type" class="form-control" required>
+                                    <option value="">Choose Type</option>
+                                    @if (count($types) > 0)
+                                        @foreach ($types as $type)
+                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

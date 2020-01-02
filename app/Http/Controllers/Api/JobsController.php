@@ -34,6 +34,23 @@ class JobsController extends Controller
 
             $jobs = $jobs->whereRaw('? between salary_from and salary_to', [$request->salary_min]);
         }
+        if (isset($request->sort_title)) {
+            switch ($request->sort_title) {
+                case 1:
+                    $jobs = $jobs->orderBy('title', 'ASC');
+                    break;
+                case 2:
+                    $jobs = $jobs->with('getCompany')->leftJoin('companies', 'jobs.company_id', '=', 'companies.id')->orderBy('name', 'DESC')->whereNull('companies.deleted_at')->whereNull('jobs.deleted_at');
+
+                    break;
+                case 3:
+                    $jobs = $jobs->with('getCompany')->leftJoin('companies', 'jobs.company_id', '=', 'companies.id')->orderBy('location', 'DESC')->whereNull('companies.deleted_at')->whereNull('jobs.deleted_at');
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         $jobs = $jobs->with('getCompany')->paginate(20);
         return response()->json($jobs);

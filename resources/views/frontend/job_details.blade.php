@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-            <img src="{{asset('projob_images/'.$data->cover_photo)}}" alt="" class="card-img-top">
+            <img src="{{asset('projob_images/'.$data->cover_photo)}}" alt="" class="card-img-top d-none d-xs-none d-sm-none d-md-block">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
-                        <img src="{{asset('projob_images/'.$data->logo)}}" alt="" class="card-img-top" class="img-fluid">
+                        <img src="{{asset('projob_images/'.$data->logo)}}" alt="" class="img-fluid">
                         </div>
                         <div class="col-md-6">
                             <h3>{{$data->title}}</h3>
@@ -174,6 +174,17 @@
 @endsection('content')
 @push('css')
 <link rel="stylesheet" href="{{asset('css/jssor-slider.css')}}">
+<style>
+
+
+ /* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .card-img-top{
+        height: 300px;
+
+    }
+ }
+</style>
 @endpush
 @push('js')
 <script src="{{asset('js/jssor.slider-28.0.0.min.js')}}" type="text/javascript"></script>

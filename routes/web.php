@@ -16,8 +16,9 @@ use Intervention\Image\ImageManagerStatic as Image;
 Route::get('/', 'HomeController@index');
 Route::get('/searchjobs', 'HomeController@searchjobs');
 Route::get('/jobdetails/{id}', 'HomeController@jobDetails');
-
-
+Route::get('/first', function () {
+    return view('auth.first_req');
+});
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     // DashBoard

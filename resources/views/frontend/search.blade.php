@@ -147,7 +147,7 @@
               <a class="nav-link" href="#">Recruitment Firms</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0" id="sort_title">
+          <form class="form-inline my-2 my-lg-0" action="/searchjobs" id="sort_form">
             <select class="custom-select mr-sm-2 form-control form-control-sm ml-1 my-1 w-100" id="sort_title" name="sort_title">
               <option selected>Date</option>
               <option value="1">Job Title</option>
@@ -214,14 +214,8 @@
 @endpush
 @push('js')
 <script>
-$('#sort_title').on('change',function(e){
-e.preventDefault();
-var sort_title = $('#sort_title').val();
-console.log(sort_title);
-$.ajax({
-    method: 'get',
-    url : '/searchjobs'
-});
+$('#sort_title').on('change',function(){
+    $('#sort_form').submit();
 });
 </script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>

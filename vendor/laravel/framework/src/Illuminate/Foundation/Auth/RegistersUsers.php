@@ -5,6 +5,8 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Models\Type;
+use App\Models\Nationality;
 
 trait RegistersUsers
 {
@@ -17,7 +19,8 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        return view('auth.register');
+
+        return view('auth.register', ['types' => Type::all()]);
     }
 
     /**
@@ -28,14 +31,15 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
+        // dd($request->all());
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+        return view('auth.first_req', ['nationality' => Nationality::all()]);
         $this->guard()->login($user);
 
         return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+            ?: redirect($this->redirectPath());
     }
 
     /**
