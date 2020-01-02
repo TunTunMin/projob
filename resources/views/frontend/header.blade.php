@@ -34,7 +34,7 @@
 				</li>
 			</ul>	 --}}
 			<nav class="nav nav-pills flex-column flex-sm-row ml-auto">
-				
+
 				@guest
 				<li class="nav-item">
 					<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -63,7 +63,7 @@
 					</div>
 				</li>
 			@endguest
-				
+
 				<a class="flex-sm-fill text-sm-center nav-link active" href="#">Employer</a>
 			</nav>
 		</div>

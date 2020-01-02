@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="row py-4">
-                            <div class="col-md-5 text-center">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="nationality">Nationality*:</label>
                                     <select name="nationality_id" id="nationality_id" class="form-control">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
-                            <div class="col-md-5 text-center">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="residing_in">Currently residing in *</label>
                                     <select name="current_resident" id="residing_in" class="form-control">
@@ -53,8 +53,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row py-2">
-                            <div class="col-md-5 text-center">
+                        <div class="row pb-2">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="specializations">Preferred specializations *:</label>
                                     <select name="specialization[]" id="specialization" class="form-control"  multiple="multiple">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
-                            <div class="col-md-5 text-center">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="prefer_work_location">Preferred work locations *:</label>
                                     <select name="prefer_worklocation" id="prefer_worklocation" class="form-control">
@@ -102,7 +102,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="float-right">
-                        <input type="submit" value="Next" class="btn btn-warning">
+                        <input type="submit" value="Next" class="btn btn-md btn-warning">
                     </div>
                 </div>
             </div>
@@ -112,14 +112,25 @@
 @stop
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        line-height: 38px !important;
+    }
+.select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container .select2-selection--single{
+    height: auto !important;
+    bottom: 1px;
+}
+</style>
 @endpush
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 <script>
-$('#nationality_id').select2();
-$('#residing_in').select2();
-$('#specialization').select2();
-$('#prefer_worklocation').select2();
-$('#salary_unit').select2();
+$('#nationality_id').select2({ width: '100%' });
+$('#residing_in').select2({ width: '100%' });
+$('#specialization').select2({ width: '100%',placeholder: "Add a specialization",
+    allowClear: true });
+$('#prefer_worklocation').select2({ width: '100%' });
+$('#salary_unit').select2({ width: '100%' });
+
 </script>
 @endpush
