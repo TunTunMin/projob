@@ -7,8 +7,8 @@
 	<link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.css')}}">
 	<link rel="stylesheet" href="{{asset('fontawesome/css/all.css')}}">
 	<link rel="stylesheet" href="{{asset('fontawesome/css/fontawesome.css')}}">
-	<link rel="icon" type="image/ico" href="Images/95.jpg" />
-	<link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/header.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 	@stack('css')
 </head>
 <body>

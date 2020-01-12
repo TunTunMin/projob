@@ -57,10 +57,10 @@
                             <li class="phone"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;<a href="tel: +9509 40688 0124">+9509 40688 0124</a></li>
                             <li class="mail"><i class="fas fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:itvisionhub@gmail.com">itvisionhub@gmail.com</a> </li>
                             <li class="twitter">
-                                <i class="fab fa-twitter"></i>&nbsp;&nbsp;<a href="https://twitter.com/EiMon92606524">Ei Mon</a>
+                                <i class="fab fa-twitter"></i>&nbsp;&nbsp;<a href="https://twitter.com/EiMon92606524">ProJob</a>
                             </li>
                             <li class="linkedin">
-                            <i class="fab fa-linkedin"></i>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/ei-mon-674344166/">Ei Mon</a>
+                            <i class="fab fa-linkedin"></i>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/ei-mon-674344166/">ProJob</a>
                             </li>
                             </ul>
                         </div>
@@ -88,6 +88,7 @@
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('fontawesome/js/all.min.js')}}"></script>
 <script src="{{asset('fontawesome/js/fontawesome.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 @stack('js')
 </body>
 </html>

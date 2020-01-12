@@ -5,7 +5,7 @@
 <div class=" navbar navbar-light list-group-item-secondary mt-2 py-0 nav-tabs">
   <div class="container">
     <a class="text-left"href="#">Jobs in <b>Singapore</b></a>
-    {{-- {{dd($data->data)}} --}}
+
     <a class="text-right nav-link" href="#">{{$data->current_page}} - {{ $data->last_page}} of {{$data->total}} Jobs</a>
   </div>
 </div>
@@ -168,7 +168,7 @@
                 <a href="/jobdetails/{{$job->id}}">
                 <h5>{{$job->title}}</h5>
                 </a>
-                <a href="#">{{$job->get_company->name}}</a>
+                <a href="/searchjobs?company_id={{$job->get_company->id}}">{{$job->get_company->name}}</a>
                 </div>
                 <div class="my-3 pl-3">
                 <ul class="list-unstyled">

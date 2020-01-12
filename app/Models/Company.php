@@ -14,10 +14,10 @@ class Company extends Model
     protected $gallery = [
         'gallery' => 'mimes:jpeg,jpg,png,gif,svg|required|max:10000' // max 10000kb
     ];
-    public function job()
-    {
-        return $this->hasOne('App\Models\Job');
-    }
+    // public function job()
+    // {
+    //     return $this->hasOne('App\Models\Job');
+    // }
     public function jobs()
     {
         return $this->hasMany('App\Models\Job');

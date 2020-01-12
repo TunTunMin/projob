@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Type;
 use App\Models\Nationality;
+use App\Models\Prefer_Specialization;
+use App\Models\Township;
 
 trait RegistersUsers
 {
@@ -19,8 +21,8 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-
-        return view('auth.register', ['types' => Type::all()]);
+        // dd(Type::whereNotIn('id', [1])->get());
+        return view('auth.register', ['types' => Type::get()]);
     }
 
     /**
@@ -35,9 +37,8 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-        return view('auth.first_req', ['nationality' => Nationality::all()]);
         $this->guard()->login($user);
-
+        return view('auth.first_req', ['nationality' => Nationality::all(), 'user_id' => $user->id, 'prefer_specializations' => Prefer_Specialization::all(), 'townships' => Township::all()]);
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }

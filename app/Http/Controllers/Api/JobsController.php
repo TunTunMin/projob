@@ -30,6 +30,10 @@ class JobsController extends Controller
         if (isset($request->job_specification)) {
             $jobs = $jobs->where('job_specification_id', $request->job_specification);
         }
+        // all jobs related with company
+        if (isset($request->company_id)) {
+            $jobs = $jobs->where('company_id', $request->company_id);
+        }
         if (isset($request->salary_min)) {
 
             $jobs = $jobs->whereRaw('? between salary_from and salary_to', [$request->salary_min]);
@@ -41,10 +45,9 @@ class JobsController extends Controller
                     break;
                 case 2:
                     $jobs = $jobs->with('getCompany')->leftJoin('companies', 'jobs.company_id', '=', 'companies.id')->orderBy('name', 'DESC')->whereNull('companies.deleted_at')->whereNull('jobs.deleted_at');
-
                     break;
                 case 3:
-                    $jobs = $jobs->with('getCompany')->leftJoin('companies', 'jobs.company_id', '=', 'companies.id')->orderBy('location', 'DESC')->whereNull('companies.deleted_at')->whereNull('jobs.deleted_at');
+                    $jobs =  $jobs->with('getCompany')->leftJoin('companies', 'jobs.company_id', '=', 'companies.id')->orderBy('location', 'DESC')->whereNull('companies.deleted_at')->whereNull('jobs.deleted_at');
                     break;
                 default:
                     # code...
@@ -53,6 +56,7 @@ class JobsController extends Controller
         }
 
         $jobs = $jobs->with('getCompany')->paginate(20);
+        // dd($jobs);
         return response()->json($jobs);
     }
     // job details for api

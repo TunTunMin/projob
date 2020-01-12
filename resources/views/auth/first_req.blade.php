@@ -1,136 +1,190 @@
 @extends('frontend.master')
 
 @section('content')
-<div class="container pt-5 pb-3">
+<div class="container pt-5 pb-3 wrapper">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header text-center py-2">
-                    <h4 class="text-primary">Let your profile work for you</h4>
-                    <p class="text-muted">Stay connected with relevant career opportunities</p>
-                </div>
-                <div class="card-body">
-                    <form action="">
-                        <div class="row">
-                            <div class="col-md-5 text-center">
-                                <button class="btn btn-outline-primary form-control">
-                                        <i class="fas fa-briefcase"></i>
-                                        I have work experience</button>
+            <form action="{{route('firstpagesave')}}" method="POST">
+                    @csrf
+                <div class="modal bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="myModal">
+                    <div class="modal-dialog mw-100 w-75 modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header d-block text-center py-2">
+                                <div class="d-flex justify-content-center">
+                                    <h3 class="text-primary">Let your profile work for you</h3>
+                                </div>
+                                <h6 class="text-muted">Stay connected with relevant career opportunities</h6>
                             </div>
-                            <div class="col-md-2 text-center align-middle">
 
-                                <label class="align-self-cente">OR</label>
-                            </div>
-                            <div class="col-md-5 text-center">
-                                <button class="btn btn-outline-primary form-control">
-                                        <i class="fas fa-graduation-cap"></i> I am a student/ fresh graduate</button>
-                            </div>
-                        </div>
-                        <div class="row py-4">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="nationality">Nationality*:</label>
-                                    <select name="nationality_id" id="nationality_id" class="form-control">
-                                        <option value="">Choose Nationality*:</option>
-                                        <option value="1">English</option>
-                                        <option value="2">Myanmar</option>
-                                       {{-- @forelse ($nationality as $value)
-                                            <option value="{{$value->id}}">{{$value->name}}</option>
-                                       @empty
-
-                                       @endforelse --}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="residing_in">Currently residing in *</label>
-                                    <select name="current_resident" id="residing_in" class="form-control">
-                                        <option value="1">Yangon</option>
-                                        <option value="2">Singapore</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row pb-2">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="specializations">Preferred specializations *:</label>
-                                    <select name="specialization[]" id="specialization" class="form-control"  multiple="multiple">
-                                        <option value="1">Accountant</option>
-                                        <option value="1">IT Software</option>
-                                        <option value="2">IT Hardware</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="prefer_work_location">Preferred work locations *:</label>
-                                    <select name="prefer_worklocation" id="prefer_worklocation" class="form-control">
-                                        <option value="1">Anwhere in Yangon</option>
-                                        <option value="1">Anwhere in Mdy</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row py-2">
-                            <div class="col-md-5">
+                            <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5 text-center">
+                                        <button class="btn btn-outline-primary form-control" id="work_experience" type="button">
+                                                <i class="fas fa-briefcase"></i>
+                                                I have work experience</button>
+                                    </div>
+                                    <div class="col-md-2 text-center align-middle">
+
+                                        <label class="align-self-cente">OR</label>
+                                    </div>
+                                    <div class="col-md-5 text-center">
+                                        <button class="btn btn-outline-primary form-control" id="fresh_graduate" type="button">
+                                                <i class="fas fa-graduation-cap"></i> I am a student/ fresh graduate</button>
+                                    </div>
+                                </div>
+                                <div class="row py-4">
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="salary_unit">Monthly salary expectation</label>
-                                            <select name="salary_unit" id="salary_unit" class="form-control">
-                                                <option value="USD">USD</option>
-                                                <option value="SGD">SGD</option>
-                                                <option value="MYAN">MYAN</option>
-                                                <option value="EUR">EUR</option>
+                                            <label for="nationality">Nationality <span class="required_color">*</span></label>
+                                            <select name="nationality_id" id="nationality_id" class="form-control" required>
+                                                <option value="">Choose Nationality</option>
+
+                                                @forelse ($nationality as $value)
+                                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                                @empty
+
+                                                @endforelse
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="expected_salary">&nbsp;</label>
-                                            <input type="text" class="form-control" placeholder="Expected Salary" name="expected_salary">
+                                            <label for="residing_in">Currently residing in<span class="required_color">*</span></label>
+                                            <select name="current_resident" id="residing_in" class="form-control" required>
+                                                <option value="">Residing</option>
+                                                @forelse ($nationality as $value)
+                                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                                @empty
+
+                                                @endforelse
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row pb-2">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="specializations">Preferred specializations<span class="required_color">*</span></label>
+                                            <select name="prefer_specializations_id" id="specialization" class="form-control"  multiple="multiple" required>
+                                                <option value="">Specializations</option>
+                                               @forelse ($prefer_specializations as $specialization)
+                                                    <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                               @empty
+
+                                               @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="work_location">Preferred work locations <span class="required_color">*</span></label>
+                                            <select name="preferwork_location_id" id="work_location" class="form-control" required>
+                                                <option value="">Add Location</option>
+                                                @forelse ($townships as $township)
+                                                    <option value="{{$township->id}}">{{$township->name}}</option>
+                                               @empty
+
+                                               @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-md-5">
+                                            <label for="salary_unit">Monthly salary expectation<span class="required_color">*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <select name="salary_unit" id="salary_unit" class="form-control" required>
+                                                        @foreach (Config::get('helper.units') as $item)
+                                                            <option value="{{$item}}">{{$item}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Expected Salary" name="currency_unit" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-5" id="show_since_year">
+                                        <div class="row">
+                                            <div class="col-md-12" >
+                                                <div class="form-group">
+                                                    <label for="since_year">Working Since<span class="required_color">*</span></label>
+                                                    {!! Form::selectYear('working_since',1960,date('Y'),null,['class' => 'form-control','placeholder' => 'Year','required'=> 'true','id' => 'since_year']) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <input type="hidden" name="user_id" value="{{$user_id}}">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="float-right">
+                                    <input type="submit" value="Next" class="btn btn-md btn-warning">
+                                </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <div class="float-right">
-                        <input type="submit" value="Next" class="btn btn-md btn-warning">
                     </div>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
 @stop
 @push('css')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 <style>
-    .select2-container--default .select2-selection--single .select2-selection__rendered{
-        line-height: 38px !important;
-    }
-.select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container .select2-selection--single{
-    height: auto !important;
-    bottom: 1px;
-}
+
 </style>
 @endpush
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
 <script>
-$('#nationality_id').select2({ width: '100%' });
-$('#residing_in').select2({ width: '100%' });
-$('#specialization').select2({ width: '100%',placeholder: "Add a specialization",
-    allowClear: true });
-$('#prefer_worklocation').select2({ width: '100%' });
+        $(document).ready(function() {
+//   $('#myModal').modal('show');
+$('#myModal').modal({backdrop: 'static', keyboard: false})
+});
+
+$('#nationality_id').select2({ width: '100%', placeholder: "Choose Nationality"});
+$('#residing_in').select2({ width: '100%',placeholder: "Add Current Residing" });
+$('#specialization').select2({ width: '100%',placeholder: "Add a specialization"});
+$('#work_location').select2({ width: '100%', placeholder: "Add workLoacation" });
 $('#salary_unit').select2({ width: '100%' });
+$('#since_year').select2({width: '100%'});
+// Working Since
+$('#fresh_graduate').on('click',function(){
+    $('#fresh_graduate').css({'color':'#fff','background-color':'#007bff','border-color':'#007bff'});
+    $('#work_experience').css({
+    'color': '#007bff',
+    'background-color':'transparent',
+    'background-image':'non',
+    'border-color':'#007bf'
+});
+    $('#show_since_year').css('display','none');
+    $('#since_year').attr('required', false);
+});
+$('#work_experience').on('click',function(){
+    $('#work_experience').css({'color':'#fff','background-color':'#007bff','border-color':'#007bff'});
+    $('#fresh_graduate').css({
+    'color': '#007bff',
+    'background-color':'transparent',
+    'background-image':'non',
+    'border-color':'#007bf'
+});
+    $('#show_since_year').css('display','block');
+    $('#since_year').attr('required', true);
+});
 
 </script>
 @endpush

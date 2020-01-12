@@ -220,6 +220,23 @@ return [
                     'text' => 'Job',
                     'url'  => '/job',
                 ],
+                [
+                    'text' => 'Field of Studies',
+                    'url'  => '/fieldstudies',
+                ],
+
+                [
+                    'text' => 'Prefer Specialization',
+                    'url'  => '/prefer_specializations',
+                ],
+                [
+                    'text' => 'Qualifications',
+                    'url'  => '/qualifications',
+                ],
+                [
+                    'text' => 'Roles',
+                    'url'  => '/roles',
+                ],
             ],
         ],
         // ['header' => 'labels'],

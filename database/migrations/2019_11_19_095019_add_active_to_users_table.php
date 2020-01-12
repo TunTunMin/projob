@@ -14,7 +14,7 @@ class AddActiveToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('active');
+            $table->string('active')->default(0);
         });
     }
 

@@ -6,14 +6,14 @@
     <div class="row">
         <div class="col-md-12">
             @if ($message = Session::get('status'))
-            <?php 
+            <?php
             if($message == "Your data are successfully deleted"){
               $successorfail = "alert-danger";
             }else{
               $successorfail = "alert-success";
             }
             ?>
-            
+
             <div class="alert {{$successorfail}} alert-dismissible fade show" role="alert">
               <strong>{{$message}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -29,23 +29,24 @@
                       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalScrollable">Add Client Type</button>
                     </div>
                 </div>
-               
-                <div class="card-body">                <div class="row justify-content-between">
+
+                <div class="card-body">
+                    <div class="row justify-content-between">
                     <div class="col-md-4 col-xs-12">
                         <a href="/type" class="btn btn-md btn-success">All Data</a>
-                        
+
                     </div>
                     <div class="col-md-4 col-xs-12">
                         <div class="form-group">
                             <form action="/type" method="get" role="search" class="form-inline">
                               <input class="text mr-2 form-control" type="search" placeholder="Search" aria-label="Search" name="search_name">
                               <button class="btn btn-success" type="submit">Search</button>
-                             
+
                               </form>
                         </div>
                     </div>
                   </div>
-                    
+
                   <div class="form-group">
                       <table class="table table-striped">
                         <thead>
@@ -68,9 +69,9 @@
                           {{ csrf_field() }}
                         {{ method_field('DELETE') }}
 
-                        
+
                           <button type="submit" class="btn btn-xs btn-danger"/><i class="fa fa-trash"></i>
-                      
+
                       </form>
                       </td>
                     </tr>
@@ -83,9 +84,9 @@
                 </tbody>
             </table>
               <div class="float-right">
-              @if(count($data) > 0) 
+              @if(count($data) > 0)
                 {{$data->appends(request()->input())->links()}}
-              @endif 
+              @endif
             </div>
               </div>
           </form>
@@ -101,16 +102,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
+
       <div class="modal-body">
-         
+
             @csrf
-           
+
                 <div class="form-group">
                     <label class="card-title float-left">Client Name</label>
                     <input type="text" class="form-control" id="inputName" placeholder="Enter Name" name="name">
                 </div>
-              
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,7 +120,7 @@
       </form>
     </div>
   </div>
-</div>                        
+</div>
 
   </div>
   <!-- <a href=""><i class="fas fa-trash"></i></a> -->

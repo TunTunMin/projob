@@ -216,6 +216,10 @@ return [
                     'text' => 'Company',
                     'url'  => '/company',
                 ],
+                [
+                    'text' => 'Job',
+                    'url'  => '/job',
+                ],
             ],
         ],
         // ['header' => 'labels'],

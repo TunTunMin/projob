@@ -44,17 +44,7 @@ class HomeController extends Controller
     /** Search Jobs */
     public function searchjobs(Request $request)
     {
-        // dd(JobsController::AllJobs());
-        // $request = new GuzzelRequest('GET', 'http://localhost:8000/api/alljobs');
-        // $response = new GuzzleHttp\get('http://localhost:8000/api/alljobs');
-        // dd($response->getBody());
-        // if (!empty($request->all())) {
 
-        //     $request = $request;
-        //     $alljobs = Job::where('title', 'LIKE', '%' . $request['title'] . '%')->get()->toArray();
-        // } else {
-        //     $request = null;
-        // }
 
         $response = JobsController::AllJobs($request);
         $alljobs = $response->getData();
