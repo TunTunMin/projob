@@ -68,11 +68,11 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
-                                    <label for="job_specification">Job Specification*:</label>
-                                    <select name="job_specification_id" id="job_specification" class="form-control" required>
+                                    <label for="specialization">Job Specialization*:</label>
+                                    <select name="specialization_id" id="specialization" class="form-control" required>
                                         <option value="">Choose Job Specification</option>
-                                        @if (count($job_specifications))
-                                            @foreach ($job_specifications as $item)
+                                        @if (count($specializations))
+                                            @foreach ($specializations as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         @endif

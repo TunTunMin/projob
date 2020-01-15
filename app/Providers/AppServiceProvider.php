@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\ProfileComposer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('components.flashMessage', 'flashMessage');
+        view()->composer(['frontend.profile.index'], ProfileComposer::class);
         Schema::defaultStringLength(191);
     }
 }

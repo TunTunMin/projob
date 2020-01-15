@@ -9,7 +9,7 @@ class Job extends Model
 {
     use SoftDeletes;
     protected $table = "jobs";
-    protected $fillable = ['company_id', 'job_type_id', 'title', 'post_date', 'job_highlights', 'job_description', 'career_level', 'qualification', 'employee_type', 'salary_unit', 'salary_from', 'salary_to', 'job_specification_id'];
+    protected $fillable = ['company_id', 'job_type_id', 'title', 'post_date', 'job_highlights', 'job_description', 'career_level', 'qualification', 'employee_type', 'salary_unit', 'salary_from', 'salary_to', 'specialization_id'];
 
     public function getCompany()
     {
@@ -19,8 +19,8 @@ class Job extends Model
     {
         return $this->belongsTo('App\Models\JobType', 'job_type_id', 'id');
     }
-    public function getJobSpecification()
+    public function getSpecialization()
     {
-        return $this->belongsTo('App\Models\JobSpecification', 'job_specification_id', 'id');
+        return $this->belongsTo('App\Models\Specialization', 'specialization_id', 'id');
     }
 }

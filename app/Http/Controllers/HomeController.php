@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\JobCollection;
 use Illuminate\Http\Request;
 use App\Models\Job;
-use App\Models\JobSpecification;
+use App\Models\Specialization;
 use App\Models\JobType;
 use App\Models\Company;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -57,9 +57,9 @@ class HomeController extends Controller
 
         // $paginator_Data = new LengthAwarePaginator($currentItems, count($alljobs), $perPage, $currentPage);
         // dd($paginator_Data);
-        $job_specifications = JobSpecification::all();
+        $specializations = Specialization::all();
         // dd($alljobs);
-        return view('frontend.search', ['job_specifications' => $job_specifications, 'data' => $alljobs]);
+        return view('frontend.search', ['specializations' => $specializations, 'data' => $alljobs]);
     }
 
     public function jobDetails($id)

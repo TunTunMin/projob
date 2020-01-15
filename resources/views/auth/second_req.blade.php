@@ -82,7 +82,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group" class="form-control">
                                         <label for="qualification">Qualification <span class="required_color">*</span></label>
-                                        <select name="qualification_id[]" id="qualification" class="form-control">
+                                        <select name="qualification_id" id="qualification" class="form-control">
                                             <option value="">Qualification </option>
                                             @forelse ($qualifications as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -96,7 +96,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="field_study">Field of Study <span class="required_color">*</span></label>
-                                        <select name="field_studies_id" id="field_study" class="form-control">
+                                        <select name="field_study_id" id="field_study" class="form-control">
                                             <option value="">Field of Study </option>
                                             @forelse ($field_studies as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>

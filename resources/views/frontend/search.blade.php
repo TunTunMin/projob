@@ -23,9 +23,9 @@
               </div>
 
           <div class="form-inline">
-            <select class="custom-select form-control form-control-sm ml-1 my-1 w-100" id="job_specification" name="job_specification">
+            <select class="custom-select form-control form-control-sm ml-1 my-1 w-100" id="job_specification" name="specialization">
               <option value="">All Specilizations</option>
-            @forelse ($job_specifications as $item)
+            @forelse ($specializations as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
             @empty
                 <option value="">There is no data</option>
@@ -157,31 +157,33 @@
           </form>
           </div>
         </nav>
-      {{-- <div class="content-data"></div> --}}
-        {{-- {{dd($data)}} --}}
+
         @if (count($data->data) > 0)
             @foreach ($data->data as $job)
 
             <div class="row border-bottom">
                 <div class="col-9 py-2">
-                <div class="pl-3">
-                <a href="/jobdetails/{{$job->id}}">
-                <h5>{{$job->title}}</h5>
-                </a>
-                <a href="/searchjobs?company_id={{$job->get_company->id}}">{{$job->get_company->name}}</a>
-                </div>
-                <div class="my-3 pl-3">
-                <ul class="list-unstyled">
-                <li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>{{$job->get_company->location }}</li>
-                <li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>
+                    <div class="pl-3">
+                        <a href="/jobdetails/{{$job->id}}">
+                        <h5>{{$job->title}}</h5>
+                        </a>
+                        <a href="/searchjobs?company_id={{$job->get_company->id}}">{{$job->get_company->name}}</a>
+                    </div>
+                    <div class="my-3 pl-3">
+                        <ul class="list-unstyled">
+                            <li class="list-unstyled"><i class="fas fa-map-marker-alt pr-1"></i>{{$job->get_company->location }}</li>
+                            <li><i class="fas fa-dollar-sign mr-1 w-14"></i>Login to view Salary</li>
 
-                <li>
-                    <i class="fas fa-calendar"></i> {{$job->post_date}}
-                    <span class="text-muted">({{\Carbon\Carbon::parse($job->post_date)->diffForHumans()}})</span>
-                </li>
-                </ul>
-            <p>{!! str_limit($job->job_highlights,'100','...') !!}</p>
-                </div></div><div class="col-3 py-2">
+                            <li>
+                                <i class="fas fa-calendar"></i> {{$job->post_date}}
+                                <span class="text-muted">({!! \Carbon\Carbon::parse($job->post_date)->diffForHumans()!!})</span>
+                            </li>
+                        </ul>
+                        <p>{!! strip_tags(str_limit($job->job_highlights,'100','...')) !!}</p>
+                    </div>
+                </div>
+
+                <div class="col-3 py-2">
                 @if ($job->get_company->logo != null)
                     <a href="#">
                     <img class="float-right mr-3 my-3 img-fluid" src="projob_images/{{$job->get_company->logo}}" alt="projob">
@@ -204,13 +206,9 @@
       </div>
 
     </div>
-
+</div>
   @endsection
 @push('css')
-
-<style>
-
-</style>
 @endpush
 @push('js')
 <script>

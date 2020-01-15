@@ -101,7 +101,7 @@
             @csrf
             <div class="form-group">
                     {{ Form::label('Specialization *:') }}
-                    {!! Form::select('prefer_specializations_id', $specializations,null, ['class' => 'form-control','required' => true,'placeholder' => 'Choose Specialization']) !!}
+                    {!! Form::select('specialization_id', $specializations,null, ['class' => 'form-control','required' => true,'placeholder' => 'Choose Specialization']) !!}
             </div>
             <div class="form-group">
                 <label class="card-title float-left" for="name">Name *:</label>

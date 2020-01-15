@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobSpecificationsTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateJobSpecificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_specifications', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('link');
+            $table->integer('language_id');
+            $table->integer('spoken');
+            $table->integer('written');
+            // User
+            $table->unsignedBigInteger('user_id')->nullable(true);
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +33,6 @@ class CreateJobSpecificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_specifications');
+        Schema::dropIfExists('languages');
     }
 }

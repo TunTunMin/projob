@@ -209,8 +209,8 @@ return [
                     'url'  => '/job_type',
                 ],
                 [
-                    'text' => 'Job Specification',
-                    'url'  => '/job_specification',
+                    'text' => 'Specializations',
+                    'url'  => '/specializations',
                 ],
                 [
                     'text' => 'Company',
@@ -223,11 +223,6 @@ return [
                 [
                     'text' => 'Field of Studies',
                     'url'  => '/fieldstudies',
-                ],
-
-                [
-                    'text' => 'Prefer Specialization',
-                    'url'  => '/prefer_specializations',
                 ],
                 [
                     'text' => 'Qualifications',

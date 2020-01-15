@@ -28,13 +28,13 @@
                                 {{$job->getJobType->name}}
                             @endif
                         </div>
-                        <label for="job_specification" class="col-md-4 col-xs-12">Job Specification:</label>
+                        <label for="job_specification" class="col-md-4 col-xs-12">Specialization:</label>
                         <div class="col-md-8 col-xs-12">
-                            @if ($job->getJobSpecification <> null)
-                                {{$job->getJobSpecification->name}}
+                            @if ($job->getSpecialization <> null)
+                                {{$job->getSpecialization->name}}
                             @endif
                         </div>
-                        
+
                         <label for="job_highlight" class="col-md-4 col-xs-12">Job Highlight:</label>
                         <div class="col-md-8 col-xs-12">
                             {!! $job->job_highlights !!}
@@ -59,12 +59,12 @@
                         <div class="col-md-8 col-xs-12">
                             {!! $job->employee_type !!}
                         </div>
-                        
+
                         <label for="salary" class="col-md-4 col-xs-12">Salary:</label>
                         <div class="col-md-8 col-xs-12">
                             {{ $job->salary_from }} - {{ $job->salary_to }}  {!! $job->salary_unit !!}
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

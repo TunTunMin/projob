@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Type;
 use App\Models\Nationality;
-use App\Models\Prefer_Specialization;
+use App\Models\Specialization;
 use App\Models\Township;
 
 trait RegistersUsers
@@ -38,7 +38,7 @@ trait RegistersUsers
 
         event(new Registered($user = $this->create($request->all())));
         $this->guard()->login($user);
-        return view('auth.first_req', ['nationality' => Nationality::all(), 'user_id' => $user->id, 'prefer_specializations' => Prefer_Specialization::all(), 'townships' => Township::all()]);
+        return view('auth.first_req', ['nationality' => Nationality::all(), 'user_id' => $user->id, 'specializations' => Specialization::all(), 'townships' => Township::all()]);
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }

@@ -15,7 +15,7 @@
                     <div role="form">
                         <div class="form-group">
                             {{ Form::label('Specialization *:') }}
-                            {!! Form::select('prefer_specializations_id', $specializations,$data->prefer_specializations_id, ['class' => 'form-control','required' => true,'placeholder' => 'Choose Specialization']) !!}
+                            {!! Form::select('specialization_id', $specializations,$data->specialization_id, ['class' => 'form-control','required' => true,'placeholder' => 'Choose Specialization']) !!}
                         </div>
                         <div class="form-group">
                             <label>Name *:</label>

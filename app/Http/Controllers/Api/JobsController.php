@@ -27,8 +27,8 @@ class JobsController extends Controller
         if (isset($request->title)) {
             $jobs = $jobs->where('title', 'LIKE', '%' . $request->title . '%');
         }
-        if (isset($request->job_specification)) {
-            $jobs = $jobs->where('job_specification_id', $request->job_specification);
+        if (isset($request->specialization)) {
+            $jobs = $jobs->where('specialization_id', $request->specialization);
         }
         // all jobs related with company
         if (isset($request->company_id)) {
@@ -74,7 +74,7 @@ class JobsController extends Controller
         $job_data['salary_unit'] = $job->salary_unit;
         $job_data['salary_from'] = $job->salary_from;
         $job_data['salary_to'] = $job->salary_to;
-        $job_data['job_specification'] = $job->getJobSpecification->name;
+        $job_data['specialization'] = $job->getSpecialization->name;
         $job_data['job_type'] = $job->getJobType->name;
         $job_data['company'] = $job->getCompany->name;
         $job_data['location'] = $job->getCompany->location;

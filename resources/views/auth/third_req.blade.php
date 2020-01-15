@@ -60,14 +60,14 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="position_title">Position Title  <span class="required_color">*</span></label>
-                                            <input type="text" class="form-control" name="position_title" id="position_title" placeholder="Position Title">
+                                            <input type="text" class="form-control" name="position_title" id="position_title" placeholder="Position Title" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2"></div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="company_name">Company Name  <span class="required_color">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Institude/University Location" name="company_name" id="company_name">
+                                            <input type="text" class="form-control" placeholder="Institude/University Location" name="company_name" id="company_name" required>
                                         </div>
                                     </div>
                                 </div>
@@ -86,10 +86,10 @@
                                                     <span>To</span>
                                                 </div>
                                                 <div class="col-md-2 end-date">
-                                                    {!! Form::selectYear('duration_to_yr',1960,date('Y'),null,['class' => 'form-control','placeholder' => 'Year','required'=> 'true','id' => 'duration_to_yr']) !!}
+                                                    {!! Form::selectYear('duration_to_yr',1960,date('Y'),null,['class' => 'form-control durationtoyr','placeholder' => 'Year','id' => 'duration_to_yr']) !!}
                                                 </div>
                                                 <div class="col-md-2 end-date">
-                                                    {!! Form::selectMonth('duration_to_month',null,['class' => 'form-control','placeholder' => 'Year','required'=> 'true','id' => 'duration_to_month']) !!}
+                                                    {!! Form::selectMonth('duration_to_month',null,['class' => 'form-control durationtomonth','placeholder' => 'Year','id' => 'duration_to_month']) !!}
                                                 </div>
                                                 <div class="col-md-2 pt-1">
                                                     <div class="form-check">
@@ -108,7 +108,7 @@
                                         <div class="form-group" class="form-control">
                                             <label for="specialization">Specialization  <span class="required_color">*</span></label>
 
-                                            {!! Form::select('prefer_sepcializations_id', $specializations, null, ['class' => 'form-control','required' => true, 'placeholder' => 'Specialization','id' => 'specialization']) !!}
+                                            {!! Form::select('sepcializations_id', $specializations, null, ['class' => 'form-control','required' => true, 'placeholder' => 'Specialization','id' => 'specialization']) !!}
                                         </div>
                                     </div>
                                     <div class="col-md-2"></div>
@@ -206,8 +206,12 @@ $(document).ready(function(){
     $('#present').on('change', function(){
         if ($('#present').is(":checked"))
         {
+        $('.durationtoyr').attr('required',false);
+        $('.durationtomonth').attr('required',false);
         $('.end-date').hide();
         }else{
+            $('.durationtoyr').attr('required',true);
+            $('.durationtomonth').attr('required',true);
             $('.end-date').show();
         }
     });

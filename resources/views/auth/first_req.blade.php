@@ -51,7 +51,7 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="residing_in">Currently residing in<span class="required_color">*</span></label>
-                                            <select name="current_resident" id="residing_in" class="form-control" required>
+                                            <select name="current_resident_id" id="residing_in" class="form-control" required>
                                                 <option value="">Residing</option>
                                                 @forelse ($nationality as $value)
                                                     <option value="{{$value->id}}">{{$value->name}}</option>
@@ -66,13 +66,13 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="specializations">Preferred specializations<span class="required_color">*</span></label>
-                                            <select name="prefer_specializations_id" id="specialization" class="form-control"  multiple="multiple" required>
+                                            <select name="specializations_id" id="specialization" class="form-control"  required>
                                                 <option value="">Specializations</option>
-                                               @forelse ($prefer_specializations as $specialization)
-                                                    <option value="{{$specialization->id}}">{{$specialization->name}}</option>
-                                               @empty
+                                                @forelse ($specializations as $specialization)
+                                                        <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                                @empty
 
-                                               @endforelse
+                                                @endforelse
                                             </select>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
 
-                                                    <select name="salary_unit" id="salary_unit" class="form-control" required>
+                                                    <select name="currency_unit" id="salary_unit" class="form-control" required>
                                                         @foreach (Config::get('helper.units') as $item)
                                                             <option value="{{$item}}">{{$item}}</option>
                                                         @endforeach
@@ -107,14 +107,28 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Expected Salary" name="currency_unit" required>
+                                                    <input type="text" class="form-control" placeholder="Expected Salary" name="monthly_salary" required>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-md-2"></div>
-                                    <div class="col-md-5" id="show_since_year">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="permanent_resident">Permanent Resident Of</label>
+                                            <span class="required_color">*</span></label>
+                                            <select name="permanent_resident_id" id="permanent_resident_id" class="form-control" required>
+                                                <option value="">Add Country</option>
+                                                @forelse ($townships as $township)
+                                                    <option value="{{$township->id}}">{{$township->name}}</option>
+                                               @empty
+
+                                               @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 align-self-end" id="show_since_year">
                                         <div class="row">
                                             <div class="col-md-12" >
                                                 <div class="form-group">

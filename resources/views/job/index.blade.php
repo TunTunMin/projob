@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-md-12">
             @if ($message = Session::get('status'))
-            <?php 
+            <?php
             if($message == "Your data are successfully deleted" ){
               $successorfail = "alert-danger";
             }else{
               $successorfail = "alert-success";
             }
             ?>
-            
+
             <div class="alert {{$successorfail}} alert-dismissible fade show" role="alert">
               <strong>{{$message}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -27,26 +27,26 @@
                       <!-- Button trigger modal -->
                       <a href="/job/create" class="btn btn-success" >Add Job</a>
                     </div>
-                </div> 
-                
-                <div class="card-body">      
+                </div>
+
+                <div class="card-body">
                   <div class="row justify-content-between">
                       <div class="col-md-4 col-xs-12">
-                          <a href="/job" class="btn btn-md btn-success">All Data</a> 
-                          
+                          <a href="/job" class="btn btn-md btn-success">All Data</a>
+
                       </div>
                       <div class="col-md-4 col-xs-12">
                           <div class="form-group">
                               <form action="/job" method="get" role="search" class="form-inline">
                                   <input class="text mr-2 form-control" type="search" placeholder="Search" aria-label="Search" name="search_name" autocomplete="off">
                                   <button class="btn btn-success p-2" type="submit">Search</button>
-                               
+
                                 </form>
                           </div>
                       </div>
                   </div>
-                    
-                       
+
+
                   <table class="table table-striped">
                     <thead>
                       <tr>
@@ -77,7 +77,7 @@
                                 {{$value->getJobType->name}}
                             @endif
                         </td> --}}
-                        
+
                         <td>
                         <a href="job/{{$value->id}}" class="btn btn-xs btn-success"><i class="fa fa-eye p-1"></i></a>
                         <a href="job/{{$value->id}}/edit" class="btn btn-xs btn-primary"><i class="fa fa-edit p-1"></i></a>
@@ -85,7 +85,7 @@
                             {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-xs btn-danger"/><i class="fa fa-trash"></i>
-                        
+
                         </form>
                         </td>
                     </tr>
@@ -99,15 +99,15 @@
                   </tbody>
               </table>
               <div class="float-right">
-              {{-- @if(count($data) > 0) 
+              {{-- @if(count($data) > 0)
                 {{$data->appends(request()->input())->links()}}
               @endif  --}}
             </div>
               </div>
-          
+
       </div>
       <!-- Modal -->
-                     
+
 
   </div>
   <!-- <a href=""><i class="fas fa-trash"></i></a> -->

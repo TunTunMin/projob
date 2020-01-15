@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
     //nationality
     Route::resource('/nationality', 'NationalityController');
     //job specification
-    Route::resource('/job_specification', 'JobSpecificationController');
+    Route::resource('/specializations', 'SpecializationController');
     //job
     Route::resource('/job', 'JobController');
     //save job
@@ -64,12 +64,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/fieldstudies', 'FieldStudyController');
     // Institude of Location
     Route::resource('institutes', 'InstitutesController');
-    // Prefer Specializations
-    Route::resource('prefer_specializations', 'Prefer_SpecializationsController');
     // Qualifications
     Route::resource('/qualifications', 'QualificationsController');
     //Roles
     Route::resource('/roles', 'RolesController');
+    // Profile
+    Route::get('/review-profile', 'ProfileController@index')->name('frontend.profile.index');
+    Route::get('/experience', 'ProfileController@experience');
+    Route::get('/skill', 'ProfileController@skill');
+    Route::get('/education', 'ProfileController@education');
+    Route::get('/language', 'ProfileController@language');
+    Route::get('/info', 'ProfileController@info');
+    Route::get('/about', 'ProfileController@about');
+    Route::get('/resume', 'ProfileController@resume');
+    Route::get('/setting', 'ProfileController@setting');
 });
+
 
 Auth::routes();

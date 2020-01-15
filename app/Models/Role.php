@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\models\Prefer_Specialization;
+use App\models\Specialization;
 
 class Role extends Model
 {
     use SoftDeletes;
     protected $table = "roles";
-    protected $fillable = ['prefer_specializations_id', 'name'];
+    protected $fillable = ['specialization_id', 'name'];
 
     public function specializations()
     {
-        return $this->belongsTo(Prefer_Specialization::class, 'prefer_specializations_id');
+        return $this->belongsTo(Specialization::class, 'specialization_id');
     }
 }

@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class JobSpecification extends Model
+
+class Language extends Model
 {
     use SoftDeletes;
-    protected $table = "job_specifications";
-    protected $fillable = ['name','link'];
+    protected $table = "languages";
+    protected $fillable = ['language_id', 'spoken', 'written', 'user_id'];
 }

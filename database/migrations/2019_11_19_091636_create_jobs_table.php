@@ -26,15 +26,15 @@ class CreateJobsTable extends Migration
             $table->integer('salary_from');
             $table->integer('salary_to');
 
-            $table->unsignedBigInteger('job_specification_id');
-            $table->foreign('job_specification_id')->references('id')->on('job_specifications');
+            $table->unsignedBigInteger('specialization_id');
+            $table->foreign('specialization_id')->references('id')->on('specializations');
 
             $table->unsignedBigInteger('job_type_id');
             $table->foreign('job_type_id')->references('id')->on('job_types');
 
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

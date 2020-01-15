@@ -15,8 +15,8 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('prefer_specializations_id');
-            $table->foreign('prefer_specializations_id')->references('id')->on('prefer_specializations')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('specialization_id');
+            $table->foreign('specialization_id')->references('id')->on('specializations')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +31,6 @@ class CreateRolesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('roles');
-        Schema::dropColumn(['prefer_specializations_id', 'name']);
+        Schema::dropColumn(['specialization_id', 'name']);
     }
 }

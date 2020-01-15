@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
-use App\models\Prefer_Specialization;
+use App\models\Specialization;
 
 class RolesController extends Controller
 {
@@ -17,7 +17,7 @@ class RolesController extends Controller
     {
         $data = Role::with('specializations')->get();
 
-        return view('roles.index', ['data' => $data, 'specializations' => Prefer_Specialization::all()->pluck('name', 'id')]);
+        return view('roles.index', ['data' => $data, 'specializations' => Specialization::all()->pluck('name', 'id')]);
     }
 
     /**
@@ -64,7 +64,7 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('roles.edit', ['data' => $role, 'specializations' => Prefer_Specialization::all()->pluck('name', 'id')]);
+        return view('roles.edit', ['data' => $role, 'specializations' => Specialization::all()->pluck('name', 'id')]);
     }
 
     /**
