@@ -120,8 +120,8 @@
                                             <span class="required_color">*</span></label>
                                             <select name="permanent_resident_id" id="permanent_resident_id" class="form-control" required>
                                                 <option value="">Add Country</option>
-                                                @forelse ($townships as $township)
-                                                    <option value="{{$township->id}}">{{$township->name}}</option>
+                                                @forelse ($nationality as $value)
+                                                    <option value="{{$value->id}}">{{$value->name}}</option>
                                                @empty
 
                                                @endforelse

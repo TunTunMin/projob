@@ -97,7 +97,7 @@
                                                         <label class="form-check-label" for="present">
                                                             Present
                                                         </label>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                         <div class="form-group" class="form-control">
                                             <label for="specialization">Specialization  <span class="required_color">*</span></label>
 
-                                            {!! Form::select('sepcializations_id', $specializations, null, ['class' => 'form-control','required' => true, 'placeholder' => 'Specialization','id' => 'specialization']) !!}
+                                            {!! Form::select('specializations_id', $specializations, null, ['class' => 'form-control','required' => true, 'placeholder' => 'Specialization','id' => 'specialization']) !!}
                                         </div>
                                     </div>
                                     <div class="col-md-2"></div>

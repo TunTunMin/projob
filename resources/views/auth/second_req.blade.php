@@ -67,7 +67,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="university_location">Institude/University Location <span class="required_color">*</span></label>
-                                        <select name="institute_locations_id" id="university_location" class="form-control" required>
+                                        <select name="institute_location_id" id="university_location" class="form-control" required>
                                             <option value="">Institude/University Location</option>
                                             @forelse ($townships as $township)
                                                 <option value="{{$township->id}}">{{$township->name}}</option>

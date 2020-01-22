@@ -70,13 +70,27 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/roles', 'RolesController');
     // Profile
     Route::get('/review-profile', 'ProfileController@index')->name('frontend.profile.index');
-    Route::get('/experience', 'ProfileController@experience');
+    Route::get('/experience', 'ProfileController@experience')->name('experience');
+    Route::get('/editExperience/{id}', 'ProfileController@editExperience');
+    Route::post('/experienceSave', 'ProfileController@experienceSave')->name('experienceSave');
+    Route::post('/experience-update', 'ProfileController@experienceUpdate')->name('experience-update');
+    // skills
     Route::get('/skill', 'ProfileController@skill');
+    Route::get('/delete_skill/{id}', 'ProfileController@delete_skill');
+    Route::post('/skills/save', 'ProfileController@skillSave')->name('skills.save');
+
     Route::get('/education', 'ProfileController@education');
+    // language
     Route::get('/language', 'ProfileController@language');
+    Route::get('/delete_language/{id}', 'ProfileController@delete_language');
+    Route::post('/languages/save', 'ProfileController@languageSave')->name('languages.save');
+
     Route::get('/info', 'ProfileController@info');
     Route::get('/about', 'ProfileController@about');
+    // Resume
     Route::get('/resume', 'ProfileController@resume');
+    Route::post('/uploadresume', 'ProfileController@uploadresume')->name('uploadresume');
+    Route::delete('/resumeDelete', 'ProfileController@resumeDelete')->name('resumeDelete');
     Route::get('/setting', 'ProfileController@setting');
 });
 

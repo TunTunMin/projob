@@ -1,4 +1,4 @@
-@extends('frontend.profile.master')
+@extends('frontend.master')
 @section('content')
 
 @include('frontend.search_header')

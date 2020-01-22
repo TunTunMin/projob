@@ -75,13 +75,12 @@ class RegistrationUserDetailController extends Controller
         $job_duration_from = $request['duration_from_yr'] . '-' . $modify_duration_from_month;
         $modify_duration_to_month = $request['duration_to_month'] < 10 ? '0' . $request['duration_to_month'] : $request['duration_to_month'];
         $job_duration_to = null;
-        // dd(empty($request['duration_to_month']));
         if ($request['duration_to_yr'] <> null && $request['duration_to_month'] <> null) {
             $job_duration_to = $request['duration_to_yr'] . '-' . $modify_duration_to_month;
         }
 
         // dd($request->all());
-        $data = ['position_title' => $request['position_title'], 'company_name' => $request['company_name'], 'job_duration_from' => $job_duration_from, 'job_duration_to' => $job_duration_to, 'role_id' => $request['role_id'], 'industries_id' => $request['industries_id'], 'position_level' => $request['position_level'], 'phone_no' => $request['phone_no'], 'currency_unit' => $request['currency_unit'], 'specializations_id' => $request['specializations_id']];
+        $data = ['position_title' => $request['position_title'], 'company_name' => $request['company_name'], 'job_duration_from' => $job_duration_from, 'job_duration_to' => $job_duration_to, 'role_id' => $request['role_id'], 'industries_id' => $request['industries_id'], 'position_level' => $request['position_level'], 'phone_no' => $request['phone_no'], 'currency_unit' => $request['currency_unit'], 'specializations_id' => $request['specializations_id'], 'user_id' => $request['user_id']];
         // dd($data);
         if (empty($request->all())) {
             abort(403, 'Sorry this page is not working, Please try again step by step!!!');

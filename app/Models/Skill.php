@@ -10,4 +10,9 @@ class Skill extends Model
     use SoftDeletes;
     protected $table = "skills";
     protected $fillable = ['name', 'position_level', 'user_id'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

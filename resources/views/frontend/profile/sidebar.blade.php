@@ -3,7 +3,7 @@
 	<div class="card mb-4">
 		<div class="bg-transparent card-header">
             <img class="float-left mr-3 p-0 img-fluid col-3" src="{{asset('images/ttm.jpg')}}" alt="Profile">
-            <a href="/index" class="d-block">
+            <a href="/review-profile" class="d-block">
                 <h5 class="d-inline">
                     Tun Tun Min
                 </h5>

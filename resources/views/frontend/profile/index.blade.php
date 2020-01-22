@@ -14,6 +14,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <p class="text-right">Last Updated: 03 Jan 2020</p>
                         </div>
+
                         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                             <img class="float-left mr-3 p-0 img-fluid" src="{{asset('images/ttm.jpg')}}" alt="Profile">
                         </div>
@@ -22,18 +23,19 @@
                                 <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
 
                                     <h5>{{$users->name}}</h5>
-                                    <span class="d-block">{{$users->userdetails->position_title}}</span>
-                                    <span class="d-block">{{$users->userdetails->company_name}}</span>
+                                    {{-- {{dd($users->experiences[0]->position_title)}} --}}
+                                    <span class="d-block">{{$users->experiences[0]->position_title}}</span>
+                                    <span class="d-block">{{$users->experiences[0]->company_name}}</span>
                                     <a href="#" class="text-dark float-left">
                                         <i class="fa fa-phone float-left mr-2 my-1" aria-hidden="true"></i>
-                                        <span>{{$users->userdetails->phone_no}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                        {{-- <span>{{$users->experiences[0]->phone_no}}&nbsp;&nbsp;|&nbsp;&nbsp;</span> --}}
                                     </a>
                                     <a href="#" class="text-dark float-left">
                                         <i class="fa fa-envelope float-left mr-2 my-1" aria-hidden="true"></i>
                                         <span>{{$users->email}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                                     </a>
 
-                                    <span><strong>$</strong> {{$users->userdetails->currency_unit}} {{$users->userdetails->monthly_salary}}</span>
+                                    <span><strong>$</strong> {{$users->experiences[0]->currency_unit}} {{$users->experiences[0]->monthly_salary}}</span>
 
                                 </div>
                                 <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
@@ -58,85 +60,112 @@
                         </div>
                         <div class="col-12 mt-2">
                             <div class="row">
+
+                                @forelse ($users->experiences as $experience)
+
                                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                    <span class="d-block">{{date('M Y',strtotime($users->userdetails->job_duration_from))}} - {{$users->userdetails->job_duration_to == null ? 'Present' : date('M Y',strtotime($users->userdetails->job_duration_to))}}</span>
-                                    <?php
 
-                                        $job_duration_to = $users->userdetails->job_duration_to == null ? date('Y-m') : $users->userdetails->job_duration_to;
+                                        <span class="d-block">
+                                            {{date('M Y',strtotime($experience->job_duration_from))}} - {{$experience->job_duration_to == null ? date('M Y') : date('M Y',strtotime($experience->job_duration_to))}}
+                                        </span>
 
-                                        $to = \Carbon\Carbon::createFromFormat('Y-m', $users->userdetails->job_duration_from );
-                                        $from = \Carbon\Carbon::createFromFormat('Y-m', $job_duration_to);
-                                        $diff_in_months = $to->diff($from)->format('%y years, %m months');
+                                        <?php
 
-                                    ?>
+                                            if($experience->job_duration_to == null){
+                                                $duration_to = date('Y-m');
+                                            }else{
+                                                $duration_to = $experience->job_duration_to;
+                                            }
+                                            $job_duration_to = $duration_to;
 
-                                    <span class="text-muted">{{$diff_in_months}}</span>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                                    <h5>{{$users->userdetails->company_name}}</h5>
+                                            $to = \Carbon\Carbon::createFromFormat('Y-m', $experience->job_duration_from );
 
-                                    <div class="row mt-1">
-                                        <div class="col-xs-5 col-sm-3">
-                                            <p class="text-muted">Industry</p>
-                                        </div>
-                                        <div class="col-xs-7 col-sm-9">
-                                            <p>Computer/Information Technology(Software)</p>
-                                        </div>
+                                            $from = \Carbon\Carbon::createFromFormat('Y-m', $job_duration_to);
+                                            $diff_in_months = $to->diff($from)->format('%y years, %m months');
+
+                                        ?>
+
+                                        <span class="text-muted">{{$diff_in_months}}</span>
                                     </div>
-                                    <div class="row mt-1">
-                                        <div class="col-xs-5 col-sm-3">
-                                            <p class="text-muted">Specialization</p>
-                                        </div>
-                                        <div class="col-xs-7 col-sm-9">
-                                            <p>IT/Computer - Software</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-xs-5 col-sm-3">
-                                            <p class="text-muted">Role</p>
-                                        </div>
-                                        <div class="col-xs-7 col-sm-9">
-                                            <p>Senior Full Stack Web Developer</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-xs-5 col-sm-3">
-                                            <p class="text-muted">Position Level</p>
-                                        </div>
-                                        <div class="col-xs-7 col-sm-9">
-                                            <p>Senior Level</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-xs-5 col-sm-3">
-                                            <p class="text-muted">Monthly Salary </p>
-                                        </div>
-                                        <div class="col-xs-7 col-sm-9">
-                                            <p>USD 2,000</p>
-                                        </div>
-                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                        <h5>{{$experience->company_name}}</h5>
 
-                                </div>
+                                        <div class="row mt-1">
+                                            <div class="col-xs-5 col-sm-3">
+                                                <p class="text-muted">Industry</p>
+                                            </div>
+                                            <div class="col-xs-7 col-sm-9">
+
+                                            <p>{{$experience->industry->name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-xs-5 col-sm-3">
+                                                <p class="text-muted">Specialization</p>
+                                            </div>
+                                            <div class="col-xs-7 col-sm-9">
+                                                <p>{{$experience->specialization->name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-xs-5 col-sm-3">
+                                                <p class="text-muted">Role</p>
+                                            </div>
+                                            <div class="col-xs-7 col-sm-9">
+                                                <p>{{$experience->role->name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-xs-5 col-sm-3">
+                                                <p class="text-muted">Position Level</p>
+                                            </div>
+                                            <div class="col-xs-7 col-sm-9">
+                                            <p>{{Config::get('helper.position_level')[$experience->position_level]}}</p>
+                                            </div>
+                                        </div>
+                                        @if ($experience->currency_unit <> null && $experience->monthly_salary <> null )
+                                            <div class="row mt-1">
+                                                <div class="col-xs-5 col-sm-3">
+                                                    <p class="text-muted">Monthly Salary </p>
+                                                </div>
+                                                <div class="col-xs-7 col-sm-9">
+                                                <p>{{Config::get('helper.units')[$experience->currency_unit]}} {{$experience->monthly_salary}}</p>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                @empty
+
+                                @endforelse
+
                             </div>
                         </div>
                     </div>
                     <hr>
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <i class="fa fa-graduation-cap float-left mr-3 my-1" aria-hidden="true"></i>
                             <h5>Education</h5>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1">
-                            <div class="row mt-1">
-                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                    <p class="text-muted">Feb 2018</p>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                                    <h5>University of Computer Studies, Meiktila</h5>
-                                    <p>Bachelor's Degree in Computer Science/Information Technology  |  Myanmar</p>
+                        @forelse ($users->education as $education)
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1">
+                                <div class="row mt-1">
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+                                    <p class="text-muted">{{date('M Y',strtotime($education->graduate_date))}}</p>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                        <h5>{{$education->institute_university}}</h5>
+                                        <p>{{$education->qualification->name}}/ {{$education->field_study->name}} |  Myanmar</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @empty
+
+                        @endforelse
+
                     </div>
 
                     <hr>
