@@ -30,19 +30,19 @@
 
                                 @switch($user_details->working_since)
                                     @case(1)
-                                        <p>
+
                                             I am a fresh graduate seeking my first job
-                                        </p>
+
                                         @break
                                     @case(2)
-                                        <p>
+
                                             I am a student seeking internship or part-time jobs
-                                        </p>
+
                                         @break
                                     @default
-                                        <p>
+
                                             I have been working since {{$user_details->working_since}}
-                                        </p>
+
                                 @endswitch
                             </p>
                         </div>
@@ -293,14 +293,14 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-2">
                                 <div class="float-right">
-                                    <a  href="#" class="btn btn-warning create-button-exp" onclick="editFunction({{$experience->id}})">
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </a>
-                                    <form action="#" method="post" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
-                                    </form>
+                                <a  href="#" class="btn btn-warning create-button-exp" onclick="editFunction({{$experience->id}})">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <form action="experienceDelete/{{$experience->id}}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"> <i class="far fa-trash-alt"></i></button>
+                                </form>
                                 </div>
 
                             </div>
@@ -407,7 +407,7 @@
                 $( "#select2-duration_from_year-container" ).text(dt[0]);
                 // Duration From Month
 
-                $( "#duration_from_month option:selected").val(dt[1]);
+                $( "#duration_from_month option:selected").val(parseInt(dt[1]));
                 $( "#select2-duration_from_month-container" ).text(monthName(parseInt(dt[1])));
             }
 
@@ -420,7 +420,7 @@
                 $( "#duration_to_year option:selected" ).val(duration_to[0]);
                 $( "#select2-duration_to_year-container" ).text(duration_to[0]);
                 //month
-                $( "#duration_to_month option:selected" ).val(duration_to[1]);
+                $( "#duration_to_month option:selected" ).val(parseInt(duration_to[1]));
                 $( "#select2-duration_to_month-container" ).text(monthName(parseInt(duration_to[1])));
             }else{
                 $('#present').attr('checked',true);

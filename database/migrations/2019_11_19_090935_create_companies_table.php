@@ -17,13 +17,13 @@ class CreateCompaniesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->longText('company_overview');
-            $table->string('register_no');
+            $table->string('register_no')->nullable(true);
             $table->string('ea_no');
             $table->longText('company_size');
             $table->string('industry');
             $table->string('location');
             $table->string('average_processtime');
-            $table->longText('benefit_other');
+            $table->longText('benefit_other')->nullable(true);
             $table->string('gallery');
             $table->string('cover_photo');
             $table->string('logo');

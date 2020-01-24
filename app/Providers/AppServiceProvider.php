@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('components.flashMessage', 'flashMessage');
-        view()->composer(['frontend.profile.index', 'frontend.profile.info', 'frontend.profile.about', 'frontend.profile.experience.index'], ProfileComposer::class);
+        view()->composer(['frontend.profile.index', 'frontend.profile.info', 'frontend.profile.about', 'frontend.profile.experience.index', 'frontend.profile.education', 'frontend.profile.sidebar', 'frontend.profile.skill', 'frontend.profile.language'], ProfileComposer::class);
         Schema::defaultStringLength(191);
     }
 }

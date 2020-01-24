@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Address extends Model
 {
     use SoftDeletes;
@@ -12,10 +13,10 @@ class Address extends Model
 
     public function township()
     {
-        return $this->belongsTo('App\Models\Township', 'township_id','id');
+        return $this->belongsTo('App\Models\Township', 'township_id', 'id');
     }
     public function street()
     {
-        return $this->belongsTo('App\Models\Street', 'street_id','id');
+        return $this->belongsTo('App\Models\Street', 'street_id', 'id');
     }
 }

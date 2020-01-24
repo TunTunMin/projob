@@ -2,11 +2,12 @@
 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 	<div class="card mb-4">
 		<div class="bg-transparent card-header">
-            <img class="float-left mr-3 p-0 img-fluid col-3" src="{{asset('images/ttm.jpg')}}" alt="Profile">
-            <a href="/review-profile" class="d-block">
+            <img class="float-left mr-3 p-0 img-fluid col-3" src="{{asset('storage/profiles/'.$user_details->profile)}}" alt="Profile">
+            <a href="/review-profile" class="d-block text-dark text-decoration-none">
                 <h5 class="d-inline">
-                    Tun Tun Min
+                    {{$users->name}}
                 </h5>
+                <br>
                 <span class="text-muted">View Profile</span>
             </a>
 

@@ -38,6 +38,15 @@ return [
         18 => 'Tamil',
         19 => 'Thai',
         20 => 'Vietnamese'
+    ],
+    'grades' => [
+        1 => 'Grade A',
+        2 => 'Grade B',
+        3 => 'Grade C',
+        4 => 'Grade D',
+        5 => '1st Class',
+        6 => '2nd Class upper',
+
     ]
 
 ];

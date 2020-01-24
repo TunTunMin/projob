@@ -23,6 +23,10 @@ class UserDetailInfo extends Model
     {
         return $this->belongsTo('App\Models\Nationality');
     }
+    public function permentresident()
+    {
+        return $this->belongsTo('App\Models\Nationality', 'permanent_resident_id', 'id');
+    }
     public function permanentresident()
     {
         return $this->belongsTo('App\Models\Township', 'permanent_resident_id', 'id');
