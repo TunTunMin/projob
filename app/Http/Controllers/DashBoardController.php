@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DashBoard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class DashBoardController extends Controller
 {
@@ -14,6 +16,10 @@ class DashBoardController extends Controller
      */
     public function index()
     {
+        // dd(Auth()->user()->type_id);
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         return view('dashboard');
     }
 

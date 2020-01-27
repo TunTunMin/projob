@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\JobType;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Gate;
 
 class JobTypeController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,13 +22,13 @@ class JobTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = JobType::select('id','name');
+        $data = JobType::select('id', 'name');
         $search_name = $request['search_name'];
-        if($search_name <> null){
-            $data = $data->where('name','LIKE','%'.$search_name.'%');
+        if ($search_name <> null) {
+            $data = $data->where('name', 'LIKE', '%' . $search_name . '%');
         }
         $data = $data->paginate(10);
-        return view('job_type.index')->with('data',$data);
+        return view('job_type.index')->with('data', $data);
     }
 
     /**
@@ -31,7 +38,7 @@ class JobTypeController extends Controller
      */
     public function create()
     {
-         return view('job_type.create');
+        return view('job_type.create');
     }
 
     /**
@@ -44,7 +51,7 @@ class JobTypeController extends Controller
     {
         JobType::create($request->except('_token'));
         return redirect('job_type')
-                ->with('status','Your data are successfully stored');
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -56,7 +63,7 @@ class JobTypeController extends Controller
     public function show(JobType $jobType)
     {
 
-        return view('job_type.show')->with('JobType',$jobType);
+        return view('job_type.show')->with('JobType', $jobType);
     }
 
     /**
@@ -65,10 +72,10 @@ class JobTypeController extends Controller
      * @param  \App\Models\JobType  $jobType
      * @return \Illuminate\Http\Response
      */
-    public function edit( JobType $jobType)
+    public function edit(JobType $jobType)
     {
-       
-        return view('job_type.edit')->with('JobType',$jobType);
+
+        return view('job_type.edit')->with('JobType', $jobType);
     }
 
     /**
@@ -80,9 +87,9 @@ class JobTypeController extends Controller
      */
     public function update(Request $request, JobType $jobType)
     {
-       $jobType->update($request->except(['_token', '_method']));
-       return redirect('/job_type')
-       ->with('status','Your data are successfully updated');
+        $jobType->update($request->except(['_token', '_method']));
+        return redirect('/job_type')
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -91,15 +98,11 @@ class JobTypeController extends Controller
      * @param  \App\Models\JobType  $jobType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobType $jobType,Request $request)
+    public function destroy(JobType $jobType, Request $request)
     {
-     
-       $jobType->delete();
-       return redirect('/job_type')
-       ->with('status','Your data are successfully deleted');
+
+        $jobType->delete();
+        return redirect('/job_type')
+            ->with('status', 'Your data are successfully deleted');
     }
-
-
-
 }
- 

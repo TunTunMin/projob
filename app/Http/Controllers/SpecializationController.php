@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Specialization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SpecializationController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *

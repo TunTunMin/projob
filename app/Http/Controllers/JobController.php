@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\JobType;
 use App\Models\Specialization;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *

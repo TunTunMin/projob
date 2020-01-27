@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TypeController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,10 +21,10 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Type::select('id','name');
-         $search_name = $request['search_name'];
-        if($search_name <> null){
-            $data = $data->where('name','LIKE','%'.$search_name.'%');
+        $data = Type::select('id', 'name');
+        $search_name = $request['search_name'];
+        if ($search_name <> null) {
+            $data = $data->where('name', 'LIKE', '%' . $search_name . '%');
         }
         $data = $data->paginate(10);
         return view('type.index')->with('data', $data);
@@ -30,7 +37,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-         return view('type.create');
+        return view('type.create');
     }
 
     /**
@@ -43,7 +50,7 @@ class TypeController extends Controller
     {
         Type::create($request->except('_token'));
         return redirect('type')
-        ->with('status','Your data are successfully stored');
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -54,7 +61,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        return view('type.show')->with('Type',$type);
+        return view('type.show')->with('Type', $type);
     }
 
     /**
@@ -65,7 +72,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('type.edit')->with('Type',$type);
+        return view('type.edit')->with('Type', $type);
     }
 
     /**
@@ -78,8 +85,8 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $type->update($request->except(['_token', '_method']));
-       return redirect('/type')
-       ->with('status','Your data are successfully updated');
+        return redirect('/type')
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -91,10 +98,7 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         $type->delete();
-       return redirect('/type')
-       ->with('status','Your data are successfully deleted');
+        return redirect('/type')
+            ->with('status', 'Your data are successfully deleted');
     }
-
-   
-    
 }

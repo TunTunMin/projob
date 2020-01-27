@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Township;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TownshipController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,11 +21,11 @@ class TownshipController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Township::select('id','name');
+        $data = Township::select('id', 'name');
         $search_term = $request->search_term;
         if ($search_term != null) {
-            $data = $data->where('name','LIKE','%'.$search_term.'%');
-        } 
+            $data = $data->where('name', 'LIKE', '%' . $search_term . '%');
+        }
         $data = $data->paginate(10);
         return view('township.index')->with('data', $data);
     }
@@ -44,7 +51,7 @@ class TownshipController extends Controller
         $data = new Township;
         $data->create($request->except('_token'));
         return redirect('/township')
-        ->with('status','Your data are successfully stored');
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -81,7 +88,7 @@ class TownshipController extends Controller
     {
         Township::find($id)->update(['name' => $request->name]);
         return redirect('/township')
-        ->with('status','Your data are successfully updated');
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -92,16 +99,14 @@ class TownshipController extends Controller
      */
     public function destroy(Request $request, Township $township)
     {
-        if(count($township->address()->get()) < 1){
+        if (count($township->address()->get()) < 1) {
             $township->address()->delete();
             $township->delete();
             $status = "Your data are successfully deleted";
-           
-        }else{
+        } else {
             $status = "Don't delete this item because it has child elements";
-           
         }
         return redirect('/township')
-        ->with('status',$status);
+            ->with('status', $status);
     }
 }

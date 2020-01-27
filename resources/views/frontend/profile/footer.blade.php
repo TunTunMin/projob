@@ -1,5 +1,5 @@
 <!-- Footer  -->
-<footer class="site-footer col-12 bg-dark text-white mt-5 d-block clear-fix" id="contact">
+<footer class="mediaprinthide site-footer col-12 bg-dark text-white mt-5 d-block clear-fix " id="contact">
     <div class="container clear-fix">
         <div class="row">
             <ul class="list-inline my-3">
@@ -34,7 +34,7 @@
         </div>
     </div>
 </footer>
-<div class="copy-right">
+<div class="copy-right mediaprinthide">
 <div class="container">
     <div class="row">
         <div class="col-md-12 mb-2">

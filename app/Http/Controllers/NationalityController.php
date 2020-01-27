@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Nationality;
 use Illuminate\Http\Request;
+use Gate;
 
 class NationalityController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,11 +21,11 @@ class NationalityController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Nationality::select('id','name');
+        $data = Nationality::select('id', 'name');
         $search_term = $request->search_term;
         if ($search_term != null) {
-            $data = $data->where('name','LIKE','%'.$search_term.'%');
-        } 
+            $data = $data->where('name', 'LIKE', '%' . $search_term . '%');
+        }
         $data = $data->paginate(10);
         return view('nationality.index')->with('data', $data);
     }
@@ -44,7 +51,7 @@ class NationalityController extends Controller
         $data = new Nationality;
         $data->create($request->except('_token'));
         return redirect('/nationality')
-        ->with('status','Your data are successfully stored');
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -67,7 +74,7 @@ class NationalityController extends Controller
     public function edit($id)
     {
         $data = Nationality::find($id);
-        return view('nationality.edit',['data' => $data]);
+        return view('nationality.edit', ['data' => $data]);
     }
 
     /**
@@ -81,7 +88,7 @@ class NationalityController extends Controller
     {
         Nationality::find($id)->update(['name' => $request->name]);
         return redirect('/nationality')
-        ->with('status','Your data are successfully updated');
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -94,6 +101,6 @@ class NationalityController extends Controller
     {
         Nationality::destroy($id);
         return redirect('/nationality')
-            ->with('status','Your data are successfully deleted');
+            ->with('status', 'Your data are successfully deleted');
     }
 }

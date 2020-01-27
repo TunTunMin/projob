@@ -6,9 +6,16 @@ use App\Models\Address;
 use App\Models\Township;
 use App\Models\Street;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AddressController extends Controller
 {
+    public function __construct()
+    {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,18 +23,18 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Address::join('townships','townships.id','addresses.township_id')->select('addresses.id','township_id','street_id','townships.name');
+        $data = Address::join('townships', 'townships.id', 'addresses.township_id')->select('addresses.id', 'township_id', 'street_id', 'townships.name');
         $search_term = $request->search_term;
         if ($search_term != null) {
-            $data = $data->where('townships.name','LIKE','%'.$search_term.'%');
-        } 
+            $data = $data->where('townships.name', 'LIKE', '%' . $search_term . '%');
+        }
         $data = $data->paginate(10);
         $townships = Township::all();
         $streets = Street::all();
         return view('address.index')
-                ->with('data', $data)
-                ->with('townships', $townships)
-                ->with('streets', $streets);
+            ->with('data', $data)
+            ->with('townships', $townships)
+            ->with('streets', $streets);
     }
 
     /**
@@ -40,7 +47,7 @@ class AddressController extends Controller
         $townships = Township::all();
         $streets = Street::all();
         // dd($streets);
-        return view("address.create",['townships' => $townships, 'streets' => $streets]);
+        return view("address.create", ['townships' => $townships, 'streets' => $streets]);
     }
 
     /**
@@ -52,8 +59,8 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         Address::create($request->except('_token'));
-         return redirect('/address')
-                ->with('status','Your data are successfully stored');
+        return redirect('/address')
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -93,7 +100,7 @@ class AddressController extends Controller
     {
         Address::find($id)->update(['township_id' => $request->township_id, 'street_id' => $request->street_id]);
         return redirect('/address')
-            ->with('status','Your data are successfully updated');
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -106,6 +113,6 @@ class AddressController extends Controller
     {
         Address::destroy($id);
         return redirect('/address')
-        ->with('status','Your data are successfully deleted');
+            ->with('status', 'Your data are successfully deleted');
     }
 }

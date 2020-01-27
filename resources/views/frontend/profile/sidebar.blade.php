@@ -1,5 +1,5 @@
 <!-- Left Side Card -->
-<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" id="mediprint-hide">
 	<div class="card mb-4">
 		<div class="bg-transparent card-header">
             <img class="float-left mr-3 p-0 img-fluid col-3" src="{{asset('storage/profiles/'.$user_details->profile)}}" alt="Profile">

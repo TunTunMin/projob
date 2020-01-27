@@ -7,7 +7,7 @@
 	<div class="row mt-3">
         @include('frontend.profile.sidebar')
         <!-- View Profile -->
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="print-data">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                            <div id="profile-show">
+                            <div class="profile-show">
                                 <a>
                                     <img class="float-left img-fluid profile-image" src="{{asset('storage/profiles/'.$user_details->profile)}}" alt="Profile" >
                                 </a>
@@ -54,9 +54,12 @@
                                     <span><strong>$</strong> {{$users->experiences[0]->currency_unit}} {{$users->experiences[0]->monthly_salary}}</span>
 
                                 </div>
-                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 mediaprinthide">
                                     <i class="fa fa-download mr-3" aria-hidden="true"></i>
-                                    <i class="fas fa-print"></i>
+                                    <a href="#" id="print-page">
+                                        <i class="fas fa-print"></i>
+                                    </a>
+
 
                                 </div>
                             </div>
@@ -398,7 +401,7 @@
 @endsection
 @push('css')
  <style>
-     #profile-show,.profile-image{
+     .profile-show,.profile-image{
          width: 100%;
          position: relative;
      }
@@ -408,25 +411,51 @@
          z-index: 99999;
          bottom: 0
      }
-     #profile-show{
+     .profile-show{
          width: 100px;
          height: 100px;
      }
      .profile-btn{
          width: 100%;
      }
+     @media (max-width: 768px) {
+        .profile-show{
+            width: 100%;
+            height: 100%;
+        }
+      }
+    /* media print */
+    @media print{
+        #mediprint-hide, .mediaprinthide{
+            display: none !important;
+        }
+        .col-md-9,.col-lg-9{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
 
  </style>
 @endpush
+
 @push('js')
 <script>
-    $('#profile-show').hover(function(){
-        if($('#profile-show').is(':hover')){
+     document.querySelector("#print-page").addEventListener("click", function() {
+        //  $('#print-data').removeClass('col-md-9 col-lg-9');
+        //  $('#print-data').addClass('col-md-12 col-lg-12');
+
+            window.print();
+        });
+
+    $('.profile-show').hover(function(){
+        if($('.profile-show').is(':hover')){
             $('.profile-modify-group').css('display','block');
         }else{
             $('.profile-modify-group').css('display','none');
         }
 
     });
+
 </script>
 @endpush
