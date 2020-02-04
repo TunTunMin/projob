@@ -6,15 +6,12 @@ use App\Models\JobType;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class JobTypeController extends Controller
 {
     public function __construct()
-    {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
-    }
+    { }
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +19,9 @@ class JobTypeController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = JobType::select('id', 'name');
         $search_name = $request['search_name'];
         if ($search_name <> null) {

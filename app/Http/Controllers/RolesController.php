@@ -6,14 +6,13 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\models\Specialization;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class RolesController extends Controller
 {
     public function __construct()
     {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
+        //
     }
     /**
      * Display a listing of the resource.
@@ -22,6 +21,9 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Role::with('specializations')->get();
 
         return view('roles.index', ['data' => $data, 'specializations' => Specialization::all()->pluck('name', 'id')]);

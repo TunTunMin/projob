@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Nationality;
 use Illuminate\Http\Request;
-use Gate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class NationalityController extends Controller
 {
     public function __construct()
     {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
+        //
     }
     /**
      * Display a listing of the resource.
@@ -21,6 +20,9 @@ class NationalityController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Nationality::select('id', 'name');
         $search_term = $request->search_term;
         if ($search_term != null) {

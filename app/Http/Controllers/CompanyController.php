@@ -10,16 +10,12 @@ use Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 // use Intervention\Image\Facades\Image;
 use Storage;
-use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
-    public function __construct()
-    {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +23,9 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $search_name = $request['search_name'];
         $data = Company::select('*');
         if ($search_name <> null) {

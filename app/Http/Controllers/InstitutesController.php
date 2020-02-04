@@ -10,9 +10,7 @@ class InstitutesController extends Controller
 {
     public function __construct()
     {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
+        //
     }
     /**
      * Display a listing of the resource.
@@ -21,6 +19,9 @@ class InstitutesController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Institute::select('id', 'name');
         if ($request['search'] <> null) {
             $data = $data->where('name', 'LIKE', '%' . $request['search'] . '%');

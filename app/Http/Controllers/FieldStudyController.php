@@ -11,9 +11,9 @@ class FieldStudyController extends Controller
 {
     public function __construct()
     {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
+        // if (Gate::denies('is-admin', Auth()->user())) {
+        //     abort(403, "You don't have for this permission");
+        // }
     }
     /**
      * Display a listing of the resource.

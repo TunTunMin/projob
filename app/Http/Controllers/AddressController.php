@@ -7,15 +7,12 @@ use App\Models\Township;
 use App\Models\Street;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
     public function __construct()
-    {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
-    }
+    { }
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +20,9 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Address::join('townships', 'townships.id', 'addresses.township_id')->select('addresses.id', 'township_id', 'street_id', 'townships.name');
         $search_term = $request->search_term;
         if ($search_term != null) {

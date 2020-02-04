@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Race;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RaceController extends Controller
 {
@@ -14,11 +16,14 @@ class RaceController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Race::select('id','name');
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
+        $data = Race::select('id', 'name');
         $search_term = $request->search_term;
         if ($search_term != null) {
-            $data = $data->where('name','LIKE','%'.$search_term.'%');
-        } 
+            $data = $data->where('name', 'LIKE', '%' . $search_term . '%');
+        }
         $data = $data->paginate(10);
 
         return view('race.index')->with('data', $data);
@@ -46,7 +51,7 @@ class RaceController extends Controller
         $data = new Race;
         $data->create($request->except('_token'));
         return redirect('/race')
-        ->with('status','Your data are successfully stored');
+            ->with('status', 'Your data are successfully stored');
     }
 
     /**
@@ -83,7 +88,7 @@ class RaceController extends Controller
     {
         Race::find($id)->update(['name' => $request->name]);
         return redirect('/race')
-        ->with('status','Your data are successfully updated');
+            ->with('status', 'Your data are successfully updated');
     }
 
     /**
@@ -96,6 +101,6 @@ class RaceController extends Controller
     {
         Race::destroy($id);
         return redirect('/race')
-                ->with('status','Your data are successfully deleted');
+            ->with('status', 'Your data are successfully deleted');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Qualification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class QualificationsController extends Controller
 {
@@ -14,6 +16,9 @@ class QualificationsController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Qualification::select('id', 'name');
         if ($request['search'] <> null) {
             $data = $data->where('name', 'LIKE', '%' . $request['search'] . '%');

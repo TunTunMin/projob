@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\models\Prefer_Specialization;
 use Illuminate\Http\Request;
 use SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Prefer_SpecializationsController extends Controller
 {
@@ -15,6 +16,9 @@ class Prefer_SpecializationsController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Prefer_Specialization::select('id', 'name');
         if ($request['search'] <> null) {
             $data = $data->where('name', 'LIKE', '%' . $request['search'] . '%');

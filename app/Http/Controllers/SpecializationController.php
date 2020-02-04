@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class SpecializationController extends Controller
 {
     public function __construct()
     {
-        if (Gate::denies('is-admin', Auth()->user())) {
-            abort(403, "You don't have for this permission");
-        }
+        //
     }
     /**
      * Display a listing of the resource.
@@ -21,6 +20,9 @@ class SpecializationController extends Controller
      */
     public function index(Request $request)
     {
+        if (Gate::denies('is-admin', Auth()->user())) {
+            abort(403, "You don't have for this permission");
+        }
         $data = Specialization::select('id', 'name', 'link');
         $search_name = $request['search_name'];
         if ($search_name <> null) {
